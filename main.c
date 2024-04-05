@@ -1,8 +1,5 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_image.h>
+#include "include.h"
 
-#include <stdio.h>
 
 int main() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -23,10 +20,10 @@ int main() {
         return -1;
     }
 
-    SDL_Window* window = SDL_CreateWindow("SDL2 Game",
+    SDL_Window* window = SDL_CreateWindow(WINDOW_TITLE,
                                           SDL_WINDOWPOS_UNDEFINED,
                                           SDL_WINDOWPOS_UNDEFINED,
-                                          640, 480,
+                                          WINDOW_WIDTH, WINDOW_HEIGHT,
                                           SDL_WINDOW_SHOWN);
     if (!window) {
         printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
@@ -47,18 +44,18 @@ int main() {
     }
 
     // Main loop flag
-    int quit = 0;
+    bool running = true;
 
     // Event handler
     SDL_Event e;
 
     // While application is running
-    while (!quit) {
+    while (running) {
         // Handle events on queue
         while (SDL_PollEvent(&e) != 0) {
             // User requests quit
             if (e.type == SDL_QUIT) {
-                quit = 1;
+                running = false;
             }
         }
 
@@ -68,6 +65,7 @@ int main() {
 
         // Update the screen
         SDL_RenderPresent(renderer);
+        SDL_Delay(1000 / FPS);
     }
 
     // Free resources and close SDL
