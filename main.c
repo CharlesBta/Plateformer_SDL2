@@ -123,9 +123,7 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 #pragma endregion
-
-
-
+#pragma region Sprites_Setup
     Sprite staticRightSprite = {
             .texture = IdleRight,
             .srcRect = {4, 7, 23, 28},
@@ -231,7 +229,7 @@ int main(int argc, char *argv[]) {
             .Pos = {{4,4}},
             .nbPos = 1
     };
-
+#pragma endregion
     Player player = {
             .speed = 5,
             .jumpSpeed = 25,

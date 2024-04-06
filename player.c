@@ -52,7 +52,6 @@ void updatePlayer(Player *p, int GROUND_LEVEL) {
         p->falling = false;
     }
 
-    // If player is in the air and not moving upwards anymore, they are falling
     if (p->velocity[1] > 0) {
         p->falling = true;
         p->jumping = false;
@@ -83,7 +82,6 @@ void updatePlayer(Player *p, int GROUND_LEVEL) {
 
 int spriteIndex = 0;
 SpriteState stripteIndexTmp = STATIC_RIGHT;
-
 void updatePlayerAnimation(SDL_Renderer *renderer, Player *p) {
     if (stripteIndexTmp != p->spriteIndex) {
         spriteIndex = 0;
