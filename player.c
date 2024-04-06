@@ -3,18 +3,22 @@
 void handleInput(SDL_Event event, Player *p) {
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
+            case SDLK_q:
             case SDLK_LEFT:
                 p->velocity[0] = -p->speed;
                 p->moving = true;
                 p->running = true;
                 p->direction = LEFT;
                 break;
+            case SDLK_d:
             case SDLK_RIGHT:
                 p->velocity[0] = p->speed;
                 p->moving = true;
                 p->running = true;
                 p->direction = RIGHT;
                 break;
+            case SDLK_SPACE:
+            case SDLK_z:
             case SDLK_UP:
                 if (!p->jumping && !p->falling) {
                     p->velocity[1] = -p->jumpSpeed;
@@ -24,6 +28,8 @@ void handleInput(SDL_Event event, Player *p) {
         }
     } else if (event.type == SDL_KEYUP) {
         switch (event.key.keysym.sym) {
+            case SDLK_q:
+            case SDLK_d:
             case SDLK_LEFT:
             case SDLK_RIGHT:
                 p->velocity[0] = 0;
