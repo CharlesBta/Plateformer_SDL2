@@ -42,11 +42,10 @@ int main(int argc, char *argv[]) {
         SDL_Quit();
         return -1;
     }
-#pragma endregion
 
-    SDL_Texture *image = IMG_LoadTexture(renderer, "Idle.png");
-    if (!image) {
-        printf("Unable to load image %s! SDL_image Error: %s\n", "HIM.png", IMG_GetError());
+    SDL_Texture *IdleRight = IMG_LoadTexture(renderer, "./Sprites/IdleRight.png");
+    if (!IdleRight) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "IdleRight.png", IMG_GetError());
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         IMG_Quit();
@@ -54,32 +53,184 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
-    SDL_Rect srcRect;
-    srcRect.x = 4;  // X position of the top-left corner of the rectangle in the image
-    srcRect.y = 7;  // Y position of the top-left corner of the rectangle in the image
-    srcRect.w = 23; // Width of the rectangle
-    srcRect.h = 28; // Height of the rectangle
+    SDL_Texture *IdleLeft = IMG_LoadTexture(renderer, "./Sprites/IdleLeft.png");
+    if (!IdleLeft) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "IdleLeft.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
 
-    int table[11][2] = {
-            {5,   6},
-            {37,  6},
-            {69,  6},
-            {101, 6},
-            {133, 6},
-            {165, 6},
-            {197, 6},
-            {229, 6},
-            {261, 6},
-            {293, 6},
-            {325, 6}
+    SDL_Texture *RunRight = IMG_LoadTexture(renderer, "./Sprites/RunRight.png");
+    if (!RunRight) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "RunRight.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
+
+    SDL_Texture *RunLeft = IMG_LoadTexture(renderer, "./Sprites/RunLeft.png");
+    if (!RunLeft) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "RunLeft.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
+
+    SDL_Texture *JumpRight = IMG_LoadTexture(renderer, "./Sprites/JumpRight.png");
+    if (!JumpRight) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "JumpRight.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
+
+    SDL_Texture *JumpLeft = IMG_LoadTexture(renderer, "./Sprites/JumpLeft.png");
+    if (!JumpLeft) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "JumpLeft.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
+
+    SDL_Texture *FallRight = IMG_LoadTexture(renderer, "./Sprites/FallRight.png");
+    if (!FallRight) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "FallRight.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
+
+    SDL_Texture *FallLeft = IMG_LoadTexture(renderer, "./Sprites/FallLeft.png");
+    if (!FallLeft) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "FallLeft.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
+#pragma endregion
+
+
+
+    Sprite staticRightSprite = {
+            .texture = IdleRight,
+            .srcRect = {4, 7, 23, 28},
+            .Pos = {
+                    {5,   6},
+                    {37,  6},
+                    {69,  6},
+                    {101, 6},
+                    {133, 6},
+                    {165, 6},
+                    {197, 6},
+                    {229, 6},
+                    {261, 6},
+                    {293, 6},
+                    {325, 6}
+            },
+            .nbPos = 11
     };
 
-    // Define the destination rectangle on the rendering target (screen)
-    SDL_Rect dstRect;
-    dstRect.x = 0; // X position of the top-left corner where you want to render the image on the screen
-    dstRect.y = 0; // Y position
-    dstRect.w = srcRect.w + 100; // You can scale here if you want
-    dstRect.h = srcRect.h + 100;
+    Sprite staticLeftSprite = {
+            .texture = IdleLeft,
+            .srcRect = {4, 7, 23, 28},
+            .Pos = {
+                    {5,   6},
+                    {37,  6},
+                    {69,  6},
+                    {101, 6},
+                    {133, 6},
+                    {165, 6},
+                    {197, 6},
+                    {229, 6},
+                    {261, 6},
+                    {293, 6},
+                    {325, 6}
+            },
+            .nbPos = 11
+    };
+
+    Sprite runRightSprite = {
+            .texture = RunRight,
+            .srcRect = {4, 7, 23, 28},
+            .Pos = {
+                    {5,   4},
+                    {37,  4},
+                    {69,  4},
+                    {101, 4},
+                    {133, 4},
+                    {165, 4},
+                    {197, 4},
+                    {229, 4},
+                    {261, 4},
+                    {293, 4},
+                    {325, 4},
+                    {357, 4}
+            },
+            .nbPos = 12
+    };
+
+    Sprite runLeftSprite = {
+            .texture = RunLeft,
+            .srcRect = {4, 7, 23, 28},
+            .Pos = {
+                    {4,   4},
+                    {36,  4},
+                    {68,  4},
+                    {100, 4},
+                    {132, 4},
+                    {164, 4},
+                    {196, 4},
+                    {228, 4},
+                    {260, 4},
+                    {292, 4},
+                    {324, 4},
+                    {356, 4}
+            },
+            .nbPos = 12
+    };
+
+    Sprite jumpRightSprite = {
+            .texture = JumpRight,
+            .srcRect = {4, 7, 23, 28},
+            .Pos = {{4,4}},
+            .nbPos = 1
+    };
+
+    Sprite jumpLeftSprite = {
+            .texture = JumpLeft,
+            .srcRect = {4, 7, 23, 28},
+            .Pos = {{4,4}},
+            .nbPos = 1
+    };
+
+    Sprite fallRightSprite = {
+            .texture = FallRight,
+            .srcRect = {4, 7, 23, 28},
+            .Pos = {{4,4}},
+            .nbPos = 1
+    };
+
+    Sprite fallLeftSprite = {
+            .texture = FallLeft,
+            .srcRect = {4, 7, 23, 28},
+            .Pos = {{4,4}},
+            .nbPos = 1
+    };
 
     Player player = {
             .speed = 5,
@@ -87,17 +238,27 @@ int main(int argc, char *argv[]) {
             .velocity = {0, 0},
             .alive = true,
             .moving = false,
+            .direction = RIGHT,
             .running = false,
             .jumping = false,
             .falling = false,
-            .rect = &dstRect
+            .spriteIndex = STATIC_RIGHT,
+            .dstRect = {0, 0, 132, 132},
+            .sprites = {
+                    &staticRightSprite,
+                    &staticLeftSprite,
+                    &runRightSprite,
+                    &runLeftSprite,
+                    &jumpRightSprite,
+                    &jumpLeftSprite,
+                    &fallRightSprite,
+                    &fallLeftSprite}
     };
 
-    int GROUND_LEVEL = WINDOW_HEIGHT - dstRect.h;
+    int GROUND_LEVEL = WINDOW_HEIGHT - player.dstRect.h;
 
     bool running = true;
     SDL_Event e;
-    int index = 0;
     while (running) {
         // Handle events on queue
         while (SDL_PollEvent(&e)) {
@@ -108,24 +269,16 @@ int main(int argc, char *argv[]) {
                 handleInput(e, &player);
             }
         }
-        printf("x: %d, y: %d\n", player.rect->x, player.rect->y);
+//        printf("x: %d, y: %d\n", player.sprites[player.spriteIndex]->dstRect.x, player.sprites[player.spriteIndex]->dstRect.y);
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
         // Update player position
         updatePlayer(&player, GROUND_LEVEL);
 
         // Update player animation
-        updatePlayerAnimation();
+        updatePlayerAnimation(renderer, &player);
 
         // Render image
-        srcRect.x = table[(int) index / 4][0];
-        srcRect.y = table[(int) index / 4][1];
-        SDL_RenderCopy(renderer, image, &srcRect, &dstRect);
-        if (index == 40) {
-            index = 0;
-        } else {
-            index++;
-        }
 
         SDL_RenderPresent(renderer);
         SDL_Delay(1000 / FPS);

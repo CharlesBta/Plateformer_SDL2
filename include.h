@@ -7,6 +7,7 @@
 #include <string.h>
 #include <math.h>
 #include <pthread.h>
+#include <stdbool.h>
 
 #include "define.h"
 #include "struct.h"
