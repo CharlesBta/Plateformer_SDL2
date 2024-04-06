@@ -4,3 +4,5 @@
 #define WINDOW_HEIGHT (int) 756
 
 #define FPS 60
+
+#define GRAVITY 2
