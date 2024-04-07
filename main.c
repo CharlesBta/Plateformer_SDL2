@@ -230,7 +230,7 @@ int main(int argc, char *argv[]) {
             .nbPos = 1
     };
 #pragma endregion
-
+    
 
     Player player = {
             .speed = 5,
@@ -307,14 +307,9 @@ int main(int argc, char *argv[]) {
         SDL_RenderClear(renderer);
 
         // Render platforms
-        for (int i = 0; i < (sizeof(platforms)/ sizeof(platforms[0])); i++) {
-            SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0xFF, 0xFF);
-            SDL_RenderFillRect(renderer, &platforms[i].rect);
-        }
+        setPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
 
         // Update player position
-
-
         GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms)/ sizeof(platforms[0])));
         updatePlayer(&player, GROUND_LEVEL);
 

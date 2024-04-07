@@ -1,3 +1,10 @@
+void setPlatforms(SDL_Renderer *renderer, Platform platforms[], int nbPlatforms) {
+    for (int i = 0; i < nbPlatforms; i++) {
+        SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0xFF, 0xFF);
+        SDL_RenderFillRect(renderer, &platforms[i].rect);
+    }
+}
+
 int updateGroundLevel(Player player, int GROUND_LEVEL, Platform platforms[], int nbPlatforms) {
     int X = player.dstRect.x;
     int Y = player.dstRect.y;
