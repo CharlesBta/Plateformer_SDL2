@@ -205,28 +205,28 @@ int main(int argc, char *argv[]) {
     Sprite jumpRightSprite = {
             .texture = JumpRight,
             .srcRect = {4, 7, 23, 28},
-            .Pos = {{4,4}},
+            .Pos = {{4, 4}},
             .nbPos = 1
     };
 
     Sprite jumpLeftSprite = {
             .texture = JumpLeft,
             .srcRect = {4, 7, 23, 28},
-            .Pos = {{4,4}},
+            .Pos = {{4, 4}},
             .nbPos = 1
     };
 
     Sprite fallRightSprite = {
             .texture = FallRight,
             .srcRect = {4, 7, 23, 28},
-            .Pos = {{4,4}},
+            .Pos = {{4, 4}},
             .nbPos = 1
     };
 
     Sprite fallLeftSprite = {
             .texture = FallLeft,
             .srcRect = {4, 7, 23, 28},
-            .Pos = {{4,4}},
+            .Pos = {{4, 4}},
             .nbPos = 1
     };
 #pragma endregion
@@ -257,6 +257,40 @@ int main(int argc, char *argv[]) {
 
     int GROUND_LEVEL = WINDOW_HEIGHT - player.dstRect.h;
 
+
+    Platform plat = {
+            .type = NORMAL,
+            .texture = NULL,
+            .rect = {200, WINDOW_HEIGHT - 130, 300, 10}
+    };
+
+    Platform plat2 = {
+            .type = NORMAL,
+            .texture = NULL,
+            .rect = {400, WINDOW_HEIGHT - 230, 300, 10}
+    };
+
+    Platform plat3 = {
+            .type = NORMAL,
+            .texture = NULL,
+            .rect = {600, WINDOW_HEIGHT - 130, 300, 10}
+    };
+
+    Platform plat4 = {
+            .type = NORMAL,
+            .texture = NULL,
+            .rect = {600, WINDOW_HEIGHT - 330, 300, 10}
+    };
+
+    Platform plat5 = {
+            .type = NORMAL,
+            .texture = NULL,
+            .rect = {600, WINDOW_HEIGHT - 430, 300, 10}
+    };
+
+    Platform platforms[] = {plat2, plat5, plat, plat4, plat3};
+
+
     bool running = true;
     SDL_Event e;
     while (running) {
@@ -266,13 +300,22 @@ int main(int argc, char *argv[]) {
             if (e.type == SDL_QUIT) {
                 running = false;
             } else {
-                handleInput(e, &player);
+                handleInput(e, &player, GROUND_LEVEL);
             }
         }
-//        printf("x: %d, y: %d\n", player.sprites[player.spriteIndex]->dstRect.x, player.sprites[player.spriteIndex]->dstRect.y);
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
+
+        // Render platforms
+        for (int i = 0; i < (sizeof(platforms)/ sizeof(platforms[0])); i++) {
+            SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0xFF, 0xFF);
+            SDL_RenderFillRect(renderer, &platforms[i].rect);
+        }
+
         // Update player position
+
+
+        GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms)/ sizeof(platforms[0])));
         updatePlayer(&player, GROUND_LEVEL);
 
         // Update player animation

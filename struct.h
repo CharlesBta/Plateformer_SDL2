@@ -16,3 +16,4 @@ typedef struct Platform{
     SDL_Texture *texture;
     SDL_Rect rect;
 }Platform;
+

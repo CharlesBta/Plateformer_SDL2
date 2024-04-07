@@ -1,6 +1,6 @@
 #include "player.h"
 
-void handleInput(SDL_Event event, Player *p) {
+void handleInput(SDL_Event event, Player *p, int GL) {
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_q:
@@ -25,6 +25,15 @@ void handleInput(SDL_Event event, Player *p) {
                     p->jumping = true;
                 }
                 break;
+            case SDLK_s:
+            case SDLK_DOWN:
+                if (!p->jumping && !p->falling) {
+                    if (GL < WINDOW_HEIGHT - p->dstRect.h) {
+                        p->dstRect.y += 1;
+                        p->falling = true;
+                    }
+                }
+                break;
         }
     } else if (event.type == SDL_KEYUP) {
         switch (event.key.keysym.sym) {
@@ -41,6 +50,16 @@ void handleInput(SDL_Event event, Player *p) {
 }
 
 void updatePlayer(Player *p, int GROUND_LEVEL) {
+    int nextX = p->dstRect.x + p->velocity[0];
+    int nextY = p->dstRect.y + p->velocity[1];
+
+    int nextXWidth = nextX + p->dstRect.w;
+    int nextYHeight = nextY + p->dstRect.h;
+
+    if (nextX < 0 || nextXWidth > WINDOW_WIDTH) {
+        p->velocity[0] = 0;
+    }
+
     p->dstRect.x += p->velocity[0];
     p->dstRect.y += p->velocity[1];
 

@@ -29,6 +29,6 @@ typedef struct Player {
     Sprite *sprites[8]; // 0 static right sprite, 1 static left sprite, 2 run right sprite, 3 run left sprite, 4 jump right sprite, 5 jump left sprite, 6 fall right sprite, 7 fall left sprite
 } Player;
 
-void handleInput(SDL_Event event, Player *p);
+void handleInput(SDL_Event event, Player *p, int GROUND_LEVEL);
 void updatePlayer(Player *p, int GROUND_LEVEL);
 void updatePlayerAnimation(SDL_Renderer *renderer, Player *p);
