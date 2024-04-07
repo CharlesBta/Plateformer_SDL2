@@ -230,6 +230,8 @@ int main(int argc, char *argv[]) {
             .nbPos = 1
     };
 #pragma endregion
+
+
     Player player = {
             .speed = 5,
             .jumpSpeed = 25,
