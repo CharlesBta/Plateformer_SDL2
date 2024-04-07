@@ -291,6 +291,20 @@ int main() {
 
     loadPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
 
+    SDL_Texture *picFont = IMG_LoadTexture(renderer, "./Font/Text(Black).png");
+    if (!picFont) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "Text(Black).png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        TTF_Quit();
+        SDL_Quit();
+        return -1;
+    }
+
+    WRT_Font font = WRT_LoadFont(picFont);
+//    WRT_DrawText(renderer, font, "Hello World!", 100, 100, 30);
+
     bool running = true;
     SDL_Event e;
     while (running) {
@@ -319,7 +333,7 @@ int main() {
         // Update player animation
         updatePlayerAnimation(renderer, &player);
 
-        // Render image
+        WRT_DrawText(renderer, font, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 100, 20);
 
         SDL_RenderPresent(renderer);
         SDL_Delay(1000 / FPS);
