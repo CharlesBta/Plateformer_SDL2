@@ -240,7 +240,19 @@ int main() {
             .nbPos = 1
     };
 #pragma endregion
-    
+
+    BackgroundTexture *backgroundTexture[7] = {malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture))};
+    if (load_spritesBackground(backgroundTexture, renderer) == -1) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "Background", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        TTF_Quit();
+        SDL_Quit();
+        return -1;
+    }
+
+    Background background[252] = {BLUE};
 
     Player player = {
             .speed = 5,
@@ -297,6 +309,9 @@ int main() {
         // Render platforms
         setPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
 
+        // Render background
+        set_background(backgroundTexture, renderer, background);
+      
         // Update player position
         GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms)/ sizeof(platforms[0])));
         updatePlayer(&player, GROUND_LEVEL);

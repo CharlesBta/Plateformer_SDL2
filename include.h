@@ -13,3 +13,4 @@
 #include "struct.h"
 #include "player.c"
 #include "platform.c"
+#include "backgroud.c"
