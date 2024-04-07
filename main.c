@@ -1,6 +1,6 @@
 #include "include.h"
 
-int main(int argc, char *argv[]) {
+int main() {
 #pragma region SDL2_Setup
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -116,6 +116,16 @@ int main(int argc, char *argv[]) {
     SDL_Texture *FallLeft = IMG_LoadTexture(renderer, "./Sprites/FallLeft.png");
     if (!FallLeft) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "FallLeft.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
+    
+    SDL_Texture *texturePlatform = IMG_LoadTexture(renderer, "./Sprites/Platform.png");
+    if (!texturePlatform) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "Platform.png", IMG_GetError());
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         IMG_Quit();
@@ -257,39 +267,17 @@ int main(int argc, char *argv[]) {
 
     int GROUND_LEVEL = WINDOW_HEIGHT - player.dstRect.h;
 
-
-    Platform plat = {
-            .type = NORMAL,
-            .texture = NULL,
-            .rect = {200, WINDOW_HEIGHT - 130, 300, 10}
+    Platform platforms[] = {
+            (Platform) {.texture = texturePlatform, .x = 200, .y = WINDOW_HEIGHT - 130},
+            (Platform) {.texture = texturePlatform, .x = 400, .y = WINDOW_HEIGHT - 230},
+            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 130},
+            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 330},
+            (Platform) {.texture = texturePlatform, .x = 150, .y = WINDOW_HEIGHT - 330},
+            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 430},
+            (Platform) {.texture = texturePlatform, .x = 900, .y = WINDOW_HEIGHT - 530},
     };
 
-    Platform plat2 = {
-            .type = NORMAL,
-            .texture = NULL,
-            .rect = {400, WINDOW_HEIGHT - 230, 300, 10}
-    };
-
-    Platform plat3 = {
-            .type = NORMAL,
-            .texture = NULL,
-            .rect = {600, WINDOW_HEIGHT - 130, 300, 10}
-    };
-
-    Platform plat4 = {
-            .type = NORMAL,
-            .texture = NULL,
-            .rect = {600, WINDOW_HEIGHT - 330, 300, 10}
-    };
-
-    Platform plat5 = {
-            .type = NORMAL,
-            .texture = NULL,
-            .rect = {600, WINDOW_HEIGHT - 430, 300, 10}
-    };
-
-    Platform platforms[] = {plat2, plat5, plat, plat4, plat3};
-
+    loadPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
 
     bool running = true;
     SDL_Event e;

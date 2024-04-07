@@ -14,6 +14,7 @@ typedef enum TypePlatform{
 typedef struct Platform{
     TypePlatform type;
     SDL_Texture *texture;
+    int x, y;
     SDL_Rect rect;
 }Platform;
 

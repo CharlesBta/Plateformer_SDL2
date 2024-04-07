@@ -1,7 +1,12 @@
+void loadPlatforms(SDL_Renderer *renderer, Platform platforms[], int nbPlatforms) {
+    for (int i = 0; i < nbPlatforms; i++) {
+        platforms[i].rect = (SDL_Rect) {platforms[i].x, platforms[i].y, 300, 20};
+    }
+}
+
 void setPlatforms(SDL_Renderer *renderer, Platform platforms[], int nbPlatforms) {
     for (int i = 0; i < nbPlatforms; i++) {
-        SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0xFF, 0xFF);
-        SDL_RenderFillRect(renderer, &platforms[i].rect);
+        SDL_RenderCopy(renderer, platforms[i].texture, NULL, &platforms[i].rect);
     }
 }
 
