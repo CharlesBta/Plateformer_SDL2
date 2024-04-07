@@ -306,12 +306,12 @@ int main() {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
 
+        // Render background
+        set_background(backgroundTexture, renderer, background);
+
         // Render platforms
         setPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
 
-        // Render background
-        set_background(backgroundTexture, renderer, background);
-      
         // Update player position
         GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms)/ sizeof(platforms[0])));
         updatePlayer(&player, GROUND_LEVEL);
