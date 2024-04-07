@@ -35,11 +35,13 @@ int updateGroundLevel(Player player, int GROUND_LEVEL, Platform platforms[], int
             if (X < platforms[i].rect.x + platforms[i].rect.w && XW > platforms[i].rect.x &&
                 YH <= platforms[i].rect.y + 1 && YH >= platforms[overPlatIndex].rect.y + 2){
                 GROUND_LEVEL = platforms[i].rect.y - player.dstRect.h + 1;
+                break;
             }
         } else {
             if (X < platforms[i].rect.x + platforms[i].rect.w && XW > platforms[i].rect.x &&
                 YH <= platforms[i].rect.y + 1){
                 GROUND_LEVEL = platforms[i].rect.y - player.dstRect.h + 1;
+                break;
             }
         }
     }

@@ -35,6 +35,7 @@ void WRT_DrawText(SDL_Renderer *renderer, WRT_Font font, char *text, int x, int 
                 SDL_Rect src = font.symbols[j].zone;
                 SDL_Rect dest = (SDL_Rect) {x + i * size, y, size, size};
                 SDL_RenderCopy(renderer, font.texture, &src, &dest);
+                break;
             }
         }
     }
