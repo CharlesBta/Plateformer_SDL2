@@ -205,31 +205,46 @@ int main(int argc, char *argv[]) {
     Sprite jumpRightSprite = {
             .texture = JumpRight,
             .srcRect = {4, 7, 23, 28},
-            .Pos = {{4,4}},
+            .Pos = {{4, 4}},
             .nbPos = 1
     };
 
     Sprite jumpLeftSprite = {
             .texture = JumpLeft,
             .srcRect = {4, 7, 23, 28},
-            .Pos = {{4,4}},
+            .Pos = {{4, 4}},
             .nbPos = 1
     };
 
     Sprite fallRightSprite = {
             .texture = FallRight,
             .srcRect = {4, 7, 23, 28},
-            .Pos = {{4,4}},
+            .Pos = {{4, 4}},
             .nbPos = 1
     };
 
     Sprite fallLeftSprite = {
             .texture = FallLeft,
             .srcRect = {4, 7, 23, 28},
-            .Pos = {{4,4}},
+            .Pos = {{4, 4}},
             .nbPos = 1
     };
 #pragma endregion
+
+    BackgroundTexture *backgroundTexture[7] = {malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture))};
+    if (load_spritesBackground(backgroundTexture, renderer) == -1) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "Background", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        TTF_Quit();
+        SDL_Quit();
+        return -1;
+    }
+
+    Background background[252] = {BLUE};
+
+
     Player player = {
             .speed = 5,
             .jumpSpeed = 25,
@@ -270,6 +285,10 @@ int main(int argc, char *argv[]) {
 //        printf("x: %d, y: %d\n", player.sprites[player.spriteIndex]->dstRect.x, player.sprites[player.spriteIndex]->dstRect.y);
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
+
+        // Render background
+        set_background(backgroundTexture, renderer, background);
+
         // Update player position
         updatePlayer(&player, GROUND_LEVEL);
 
