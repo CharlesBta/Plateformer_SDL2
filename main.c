@@ -1,6 +1,6 @@
 #include "include.h"
 
-int main(int argc, char *argv[]) {
+int main() {
 #pragma region SDL2_Setup
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -116,6 +116,16 @@ int main(int argc, char *argv[]) {
     SDL_Texture *FallLeft = IMG_LoadTexture(renderer, "./Sprites/FallLeft.png");
     if (!FallLeft) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "FallLeft.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
+    
+    SDL_Texture *texturePlatform = IMG_LoadTexture(renderer, "./Sprites/Platform.png");
+    if (!texturePlatform) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "Platform.png", IMG_GetError());
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         IMG_Quit();
@@ -244,7 +254,6 @@ int main(int argc, char *argv[]) {
 
     Background background[252] = {BLUE};
 
-
     Player player = {
             .speed = 5,
             .jumpSpeed = 25,
@@ -270,6 +279,18 @@ int main(int argc, char *argv[]) {
 
     int GROUND_LEVEL = WINDOW_HEIGHT - player.dstRect.h;
 
+    Platform platforms[] = {
+            (Platform) {.texture = texturePlatform, .x = 200, .y = WINDOW_HEIGHT - 130},
+            (Platform) {.texture = texturePlatform, .x = 400, .y = WINDOW_HEIGHT - 230},
+            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 130},
+            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 330},
+            (Platform) {.texture = texturePlatform, .x = 150, .y = WINDOW_HEIGHT - 330},
+            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 430},
+            (Platform) {.texture = texturePlatform, .x = 900, .y = WINDOW_HEIGHT - 530},
+    };
+
+    loadPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
+
     bool running = true;
     SDL_Event e;
     while (running) {
@@ -279,17 +300,20 @@ int main(int argc, char *argv[]) {
             if (e.type == SDL_QUIT) {
                 running = false;
             } else {
-                handleInput(e, &player);
+                handleInput(e, &player, GROUND_LEVEL);
             }
         }
-//        printf("x: %d, y: %d\n", player.sprites[player.spriteIndex]->dstRect.x, player.sprites[player.spriteIndex]->dstRect.y);
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
 
+        // Render platforms
+        setPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
+
         // Render background
         set_background(backgroundTexture, renderer, background);
-
+      
         // Update player position
+        GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms)/ sizeof(platforms[0])));
         updatePlayer(&player, GROUND_LEVEL);
 
         // Update player animation
