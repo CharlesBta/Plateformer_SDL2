@@ -11,7 +11,7 @@
 
 #include "WRT/WRT.h"
 
-#include "pointH/define.h"
+#include "define.h"
 #include "pointH/struct.h"
 #include "pointH/player.h"
 #include "pointH/platform.h"
