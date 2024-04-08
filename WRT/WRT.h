@@ -63,7 +63,6 @@ WRT_Font WRT_LoadFont(SDL_Texture *texture){
 void WRT_DrawText(SDL_Renderer *renderer, WRT_Font font, char *text, int x, int y, int size){
     if (text == NULL) return;
     text = WRT_toUpper(text);
-//    printf("%s\n", text);
     for (int i = 0; text[i] != '\0'; i++) {
         for (int j = 0; j < 46; ++j) {
             if (text[i] == font.symbols[j].c) {
