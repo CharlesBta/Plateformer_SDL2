@@ -30,7 +30,6 @@ int main() {
         printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
         SDL_DestroyWindow(window);
         IMG_Quit();
-        
         SDL_Quit();
         return -1;
     }
@@ -114,7 +113,7 @@ int main() {
         SDL_Quit();
         return -1;
     }
-    
+
     SDL_Texture *texturePlatform = IMG_LoadTexture(renderer, "./Sprites/Platform.png");
     if (!texturePlatform) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Platform.png", IMG_GetError());
@@ -239,7 +238,6 @@ int main() {
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         IMG_Quit();
-        
         SDL_Quit();
         return -1;
     }
@@ -250,7 +248,6 @@ int main() {
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         IMG_Quit();
-        
         SDL_Quit();
         return -1;
     }
@@ -265,7 +262,6 @@ int main() {
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         IMG_Quit();
-        
         SDL_Quit();
         return -1;
     }
@@ -283,7 +279,7 @@ int main() {
             (Platform) {.texture = texturePlatform, .x = 900, .y = WINDOW_HEIGHT - 530},
     };
 
-    loadPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
+    loadPlatforms(renderer, platforms, sizeof(platforms) / sizeof(platforms[0]));
 #pragma endregion
 
     Player player = {
@@ -331,10 +327,10 @@ int main() {
         set_background(backgroundTexture, renderer, background);
 
         // Render platforms
-        setPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
+        setPlatforms(renderer, platforms, sizeof(platforms) / sizeof(platforms[0]));
 
         // Update player position
-        GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms)/ sizeof(platforms[0])));
+        GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms) / sizeof(platforms[0])));
         updatePlayer(&player, GROUND_LEVEL);
 
         // Update player animation
@@ -351,7 +347,6 @@ int main() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     IMG_Quit();
-    
     SDL_Quit();
 
     return 0;
