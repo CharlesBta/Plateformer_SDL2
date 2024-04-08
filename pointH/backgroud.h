@@ -1,3 +1,18 @@
+typedef struct BackgroundTexture{
+    SDL_Texture *texture;
+    SDL_Rect rect;
+}BackgroundTexture;
+
+typedef enum Background{
+    BLUE,
+    BROWN,
+    GRAY,
+    GREEN,
+    PINK,
+    PURPLE,
+    YELLOW
+}Background;
+
 int load_spritesBackground(BackgroundTexture *t[7], SDL_Renderer *renderer) {
     t[0]->texture = IMG_LoadTexture(renderer, "./Background/Blue.png");
     if (!t[0]) {

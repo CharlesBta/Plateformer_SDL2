@@ -1,3 +1,17 @@
+typedef enum TypePlatform{
+    NORMAL,
+    BREAKABLE,
+    SPIKE
+}TypePlatform;
+
+typedef struct Platform{
+    TypePlatform type;
+    SDL_Texture *texture;
+    int x, y;
+    SDL_Rect rect;
+}Platform;
+
+
 void loadPlatforms(SDL_Renderer *renderer, Platform platforms[], int nbPlatforms) {
     for (int i = 0; i < nbPlatforms; i++) {
         platforms[i].rect = (SDL_Rect) {platforms[i].x, platforms[i].y, 300, 20};

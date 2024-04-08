@@ -7,15 +7,8 @@ int main() {
         return -1;
     }
 
-    if (TTF_Init() == -1) {
-        printf("SDL_ttf could not initialize! TTF_Error: %s\n", TTF_GetError());
-        SDL_Quit();
-        return -1;
-    }
-
     if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG)) {
         printf("SDL_image could not initialize! IMG_Error: %s\n", IMG_GetError());
-        TTF_Quit();
         SDL_Quit();
         return -1;
     }
@@ -28,7 +21,6 @@ int main() {
     if (!window) {
         printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         IMG_Quit();
-        TTF_Quit();
         SDL_Quit();
         return -1;
     }
@@ -38,7 +30,7 @@ int main() {
         printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
         SDL_DestroyWindow(window);
         IMG_Quit();
-        TTF_Quit();
+        
         SDL_Quit();
         return -1;
     }
@@ -240,19 +232,59 @@ int main() {
             .nbPos = 1
     };
 #pragma endregion
+#pragma region Font_Setup
+    SDL_Texture *picFontBlack = IMG_LoadTexture(renderer, "./Font/Text(Black).png");
+    if (!picFontBlack) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "Text(Black).png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        
+        SDL_Quit();
+        return -1;
+    }
 
+    SDL_Texture *picFontWhite = IMG_LoadTexture(renderer, "./Font/Text(White).png");
+    if (!picFontWhite) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "Text(White).png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        
+        SDL_Quit();
+        return -1;
+    }
+
+    WRT_Font fontBlack = WRT_LoadFont(picFontBlack);
+    WRT_Font fontWhite = WRT_LoadFont(picFontWhite);
+#pragma endregion
+#pragma region Background_Setup
     BackgroundTexture *backgroundTexture[7] = {malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture))};
     if (load_spritesBackground(backgroundTexture, renderer) == -1) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Background", IMG_GetError());
         SDL_DestroyRenderer(renderer);
         SDL_DestroyWindow(window);
         IMG_Quit();
-        TTF_Quit();
+        
         SDL_Quit();
         return -1;
     }
 
     Background background[252] = {BLUE};
+#pragma endregion
+#pragma region Platforms_Setup
+    Platform platforms[] = {
+            (Platform) {.texture = texturePlatform, .x = 200, .y = WINDOW_HEIGHT - 130},
+            (Platform) {.texture = texturePlatform, .x = 400, .y = WINDOW_HEIGHT - 230},
+            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 130},
+            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 330},
+            (Platform) {.texture = texturePlatform, .x = 150, .y = WINDOW_HEIGHT - 330},
+            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 430},
+            (Platform) {.texture = texturePlatform, .x = 900, .y = WINDOW_HEIGHT - 530},
+    };
+
+    loadPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
+#pragma endregion
 
     Player player = {
             .speed = 5,
@@ -277,44 +309,8 @@ int main() {
                     &fallLeftSprite}
     };
 
+
     int GROUND_LEVEL = WINDOW_HEIGHT - player.dstRect.h;
-
-    Platform platforms[] = {
-            (Platform) {.texture = texturePlatform, .x = 200, .y = WINDOW_HEIGHT - 130},
-            (Platform) {.texture = texturePlatform, .x = 400, .y = WINDOW_HEIGHT - 230},
-            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 130},
-            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 330},
-            (Platform) {.texture = texturePlatform, .x = 150, .y = WINDOW_HEIGHT - 330},
-            (Platform) {.texture = texturePlatform, .x = 600, .y = WINDOW_HEIGHT - 430},
-            (Platform) {.texture = texturePlatform, .x = 900, .y = WINDOW_HEIGHT - 530},
-    };
-
-    loadPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
-
-    SDL_Texture *picFontBlack = IMG_LoadTexture(renderer, "./Font/Text(Black).png");
-    if (!picFontBlack) {
-        printf("Unable to load image %s! SDL_image Error: %s\n", "Text(Black).png", IMG_GetError());
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        IMG_Quit();
-        TTF_Quit();
-        SDL_Quit();
-        return -1;
-    }
-
-    SDL_Texture *picFontWhite = IMG_LoadTexture(renderer, "./Font/Text(White).png");
-    if (!picFontWhite) {
-        printf("Unable to load image %s! SDL_image Error: %s\n", "Text(White).png", IMG_GetError());
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        IMG_Quit();
-        TTF_Quit();
-        SDL_Quit();
-        return -1;
-    }
-
-    WRT_Font fontBlack = WRT_LoadFont(picFontBlack);
-    WRT_Font fontWhite = WRT_LoadFont(picFontWhite);
 
     bool running = true;
     SDL_Event e;
@@ -355,9 +351,8 @@ int main() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     IMG_Quit();
-    TTF_Quit();
+    
     SDL_Quit();
 
     return 0;
 }
-
