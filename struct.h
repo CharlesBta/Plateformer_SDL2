@@ -32,3 +32,9 @@ typedef enum Background{
     PURPLE,
     YELLOW
 }Background;
+
+typedef enum GameState {
+    MENU,
+    PLAY,
+    PAUSE
+}GameState;
