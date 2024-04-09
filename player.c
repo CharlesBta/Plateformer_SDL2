@@ -1,42 +1,6 @@
-typedef struct Sprite{
-    SDL_Texture *texture;
-    SDL_Rect srcRect;
-    int Pos[12][2];
-    int nbPos;
-}Sprite;
+#include "player.h"
 
-typedef enum Direction{
-    RIGHT,
-    LEFT
-} Direction;
-
-typedef enum SpriteState{
-    STATIC_RIGHT,
-    STATIC_LEFT,
-    RUN_RIGHT,
-    RUN_LEFT,
-    JUMP_RIGHT,
-    JUMP_LEFT,
-    FALL_RIGHT,
-    FALL_LEFT
-} SpriteState;
-
-typedef struct Player {
-    int speed;
-    int jumpSpeed;
-    int velocity[2]; // x and y velocity
-    bool alive;
-    bool moving;
-    Direction direction;
-    bool running;
-    bool jumping;
-    bool falling;
-    SpriteState spriteIndex;
-    SDL_Rect dstRect;
-    Sprite *sprites[8]; // 0 static right sprite, 1 static left sprite, 2 run right sprite, 3 run left sprite, 4 jump right sprite, 5 jump left sprite, 6 fall right sprite, 7 fall left sprite
-} Player;
-
-void handleInput(SDL_Event event, Player *p, int GL){
+void handleInput(SDL_Event event, Player *p, int GL) {
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_q:
@@ -84,7 +48,8 @@ void handleInput(SDL_Event event, Player *p, int GL){
         }
     }
 }
-void updatePlayer(Player *p, int GROUND_LEVEL){
+
+void updatePlayer(Player *p, int GROUND_LEVEL) {
     int nextX = p->dstRect.x + p->velocity[0];
     int nextY = p->dstRect.y + p->velocity[1];
 
@@ -133,9 +98,10 @@ void updatePlayer(Player *p, int GROUND_LEVEL){
     else
         p->spriteIndex = STATIC_RIGHT;
 }
+
 int spriteIndex = 0;
 SpriteState stripteIndexTmp = STATIC_RIGHT;
-void updatePlayerAnimation(SDL_Renderer *renderer, Player *p){
+void updatePlayerAnimation(SDL_Renderer *renderer, Player *p) {
     if (stripteIndexTmp != p->spriteIndex) {
         spriteIndex = 0;
         stripteIndexTmp = p->spriteIndex;

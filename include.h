@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 
 #include <stdio.h>
@@ -9,10 +10,10 @@
 #include <stdbool.h>
 #include <ctype.h>
 
-#include "WRT/WRT.h"
+#include "WRT/WRT.c"
 
 #include "define.h"
-#include "pointH/struct.h"
-#include "pointH/player.h"
-#include "pointH/platform.h"
-#include "pointH/backgroud.h"
+
+#include "struct.h"
+#include "player.c"
+#include "backgroud.c"

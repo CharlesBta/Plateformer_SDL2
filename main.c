@@ -1,28 +1,5 @@
 #include "include.h"
 
-void rendererMENU(){}
-
-void rendererPAUSE(){}
-
-void rendererGAME(SDL_Renderer *renderer, BackgroundTexture **backgroundTexture, Background *background, Platform *platforms, int nbPlatforms, Player *player, WRT_Font fontWhite, WRT_Font fontBlack, int GROUND_LEVEL){
-    // Render background
-    set_background(backgroundTexture, renderer, background);
-
-    // Render platforms
-
-    setPlatforms(renderer, platforms, nbPlatforms);
-
-    // Update player position
-    GROUND_LEVEL = updateGroundLevel(*player, GROUND_LEVEL, platforms, nbPlatforms);
-    updatePlayer(player, GROUND_LEVEL);
-
-    // Update player animation
-    updatePlayerAnimation(renderer, player);
-
-    WRT_DrawText(renderer, fontWhite, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 100, 20);
-    WRT_DrawText(renderer, fontBlack, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 120, 20);
-}
-
 int main() {
 #pragma region SDL2_Setup
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -279,7 +256,10 @@ int main() {
     WRT_Font fontWhite = WRT_LoadFont(picFontWhite);
 #pragma endregion
 #pragma region Background_Setup
-    BackgroundTexture *backgroundTexture[7] = {malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture)),malloc(sizeof(BackgroundTexture))};
+    BackgroundTexture *backgroundTexture[7] = {malloc(sizeof(BackgroundTexture)), malloc(sizeof(BackgroundTexture)),
+                                               malloc(sizeof(BackgroundTexture)), malloc(sizeof(BackgroundTexture)),
+                                               malloc(sizeof(BackgroundTexture)), malloc(sizeof(BackgroundTexture)),
+                                               malloc(sizeof(BackgroundTexture))};
     if (load_spritesBackground(backgroundTexture, renderer) == -1) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Background", IMG_GetError());
         SDL_DestroyRenderer(renderer);
@@ -328,10 +308,7 @@ int main() {
                     &fallLeftSprite}
     };
 
-
     int GROUND_LEVEL = WINDOW_HEIGHT - player.dstRect.h;
-
-    GameState gameState = 4;
 
     bool running = true;
     SDL_Event e;
@@ -341,22 +318,28 @@ int main() {
             // User requests quit
             if (e.type == SDL_QUIT) {
                 running = false;
-            } else if (gameState == PLAY) {
+            } else{
                 handleInput(e, &player, GROUND_LEVEL);
             }
         }
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
 
-        if (gameState == MENU) {
-            rendererMENU();
-        } else if (gameState == PAUSE) {
-            rendererPAUSE();
-        } else if (gameState == PLAY) {
-            rendererGAME(renderer, backgroundTexture, background, platforms, nbPlatforms, &player, fontWhite, fontBlack, GROUND_LEVEL);
-        } else {
-            WRT_DrawText(renderer, fontBlack, "Win", WINDOW_WIDTH/2 - 32*2, WINDOW_HEIGHT/2 - 20, 40);
-        }
+        // Render background
+        set_background(backgroundTexture, renderer, background);
+
+        // Render platforms
+        setPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
+
+        // Update player position
+        GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms)/ sizeof(platforms[0])));
+        updatePlayer(&player, GROUND_LEVEL);
+
+        // Update player animation
+        updatePlayerAnimation(renderer, &player);
+
+        WRT_DrawText(renderer, fontWhite, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 100, 20);
+        WRT_DrawText(renderer, fontBlack, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 120, 20);
 
         SDL_RenderPresent(renderer);
         SDL_Delay(1000 / FPS);
@@ -370,3 +353,4 @@ int main() {
 
     return 0;
 }
+
