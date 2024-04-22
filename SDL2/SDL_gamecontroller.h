@@ -144,7 +144,7 @@ typedef struct SDL_GameControllerButtonBind
  * If a new mapping is loaded for an already known controller GUID, the later
  * version will overwrite the one currently loaded.
  *
- * Mappings not belonging to the current platform or with no platform field
+ * Mappings not belonging to the current Platform or with no Platform field
  * specified will be ignored (i.e. mappings for Linux will be ignored in
  * Windows, etc).
  *

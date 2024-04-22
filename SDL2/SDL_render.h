@@ -1732,7 +1732,7 @@ extern DECLSPEC int SDLCALL SDL_RenderReadPixels(SDL_Renderer * renderer,
  * \param renderer the rendering context
  *
  * \threadsafety You may only call this function on the main thread. If this
- *               happens to work on a background thread on any given platform
+ *               happens to work on a background thread on any given Platform
  *               or backend, it's purely by luck and you should not rely on it
  *               to work next time.
  *

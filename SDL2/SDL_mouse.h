@@ -179,7 +179,7 @@ extern DECLSPEC void SDLCALL SDL_WarpMouseInWindow(SDL_Window * window,
  * This function generates a mouse motion event.
  *
  * A failure of this function usually means that it is unsupported by a
- * platform.
+ * Platform.
  *
  * Note that this function will appear to succeed, but not actually move the
  * mouse when used over Microsoft Remote Desktop.

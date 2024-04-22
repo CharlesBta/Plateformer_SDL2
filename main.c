@@ -114,7 +114,7 @@ int main() {
         return -1;
     }
 
-    SDL_Texture *texturePlatform = IMG_LoadTexture(renderer, "./Sprites/Platform.png");
+    SDL_Texture *texturePlatform = IMG_LoadTexture(renderer, "./Platform/Image/Platform.png");
     if (!texturePlatform) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Platform.png", IMG_GetError());
         SDL_DestroyRenderer(renderer);
@@ -284,6 +284,41 @@ int main() {
     int nbPlatforms = sizeof(platforms) / sizeof(platforms[0]);
     loadPlatforms(renderer, platforms, nbPlatforms);
 #pragma endregion
+#pragma region Cherry_Setup
+    SDL_Texture *textureCherry = IMG_LoadTexture(renderer, "./Cherry/Image/Cherries.png");
+    if (!textureCherry) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "Cherries.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
+
+    Cherry cherry = {
+            .texture = textureCherry,
+            .srcRect = {0, 0, 32, 32},
+            .Pos = {
+                    // add 17 from {0,0} to {524,0} the first index incremented by 32
+                    {0,0},
+                    {32,0},
+                    {96,0}, // 64
+                    {160,0}, // 64
+                    {224,0}, // 64
+                    {288,0}, // 64
+                    {352,0}, // 64
+                    {416,0}, // 64
+                    {480,0}, // 64
+
+
+
+            },
+            .nbPos = 17,
+            .colected = false,
+            .dstRect = {600, 200, 64, 64}
+    };
+
+#pragma endregion
 
     Player player = {
             .speed = 5,
@@ -296,7 +331,7 @@ int main() {
             .jumping = false,
             .falling = false,
             .spriteIndex = STATIC_RIGHT,
-            .dstRect = {0, 0, 132, 132},
+            .dstRect = {0, 0, (int)132, (int)132},
             .sprites = {
                     &staticRightSprite,
                     &staticLeftSprite,
@@ -335,10 +370,13 @@ int main() {
         GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms)/ sizeof(platforms[0])));
         updatePlayer(&player, GROUND_LEVEL);
 
+        // Update cherry animation
+        updateCherryAnimation(renderer, &cherry);
+
         // Update player animation
         updatePlayerAnimation(renderer, &player);
 
-        WRT_DrawText(renderer, fontWhite, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 100, 20);
+        WRT_DrawText(renderer, fontWhite, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- A^A*A", 10, 100, 20);
         WRT_DrawText(renderer, fontBlack, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 120, 20);
 
         SDL_RenderPresent(renderer);

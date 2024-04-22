@@ -67,7 +67,7 @@ assert can have unique static variables associated with it.
     #include <signal.h>
     #define SDL_TriggerBreakpoint() raise(SIGTRAP)
 #else
-    /* How do we trigger breakpoints on this platform? */
+    /* How do we trigger breakpoints on this Platform? */
     #define SDL_TriggerBreakpoint()
 #endif
 

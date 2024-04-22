@@ -8,7 +8,7 @@
 
 /* Platform-specific types and definitions for OpenGL ES 2.X  gl2.h
  *
- * Adopters may modify khrplatform.h and this file to suit their platform.
+ * Adopters may modify khrplatform.h and this file to suit their Platform.
  * Please contribute modifications back to Khronos as pull requests on the
  * public github repository:
  *      https://github.com/KhronosGroup/OpenGL-Registry

@@ -35,7 +35,7 @@
  *   Many joysticks will not be able to supply this information.
  *
  * The term JoystickGUID is a stable 128-bit identifier for a joystick device that does not change over time, it identifies class of
- *   the device (a X360 wired controller for example). This identifier is platform dependent.
+ *   the device (a X360 wired controller for example). This identifier is Platform dependent.
  */
 
 #ifndef SDL_joystick_h_
@@ -706,7 +706,7 @@ extern DECLSPEC SDL_JoystickID SDLCALL SDL_JoystickInstanceID(SDL_Joystick *joys
  *
  * Often, the directional pad on a game controller will either look like 4
  * separate buttons or a POV hat, and not axes, but all of this is up to the
- * device and platform.
+ * device and Platform.
  *
  * \param joystick an SDL_Joystick structure containing joystick information
  * \returns the number of axis controls/number of axes on success or a

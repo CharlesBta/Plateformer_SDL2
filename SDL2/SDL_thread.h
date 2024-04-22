@@ -275,7 +275,7 @@ extern DECLSPEC const char *SDLCALL SDL_GetThreadName(SDL_Thread *thread);
  * Get the thread identifier for the current thread.
  *
  * This thread identifier is as reported by the underlying operating system.
- * If SDL is running on a platform that does not support threads the return
+ * If SDL is running on a Platform that does not support threads the return
  * value will always be zero.
  *
  * This function also returns a valid thread ID when called from the main
@@ -293,7 +293,7 @@ extern DECLSPEC SDL_threadID SDLCALL SDL_ThreadID(void);
  * Get the thread identifier for the specified thread.
  *
  * This thread identifier is as reported by the underlying operating system.
- * If SDL is running on a platform that does not support threads the return
+ * If SDL is running on a Platform that does not support threads the return
  * value will always be zero.
  *
  * \param thread the thread to query

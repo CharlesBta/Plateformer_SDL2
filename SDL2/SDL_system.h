@@ -22,7 +22,7 @@
 /**
  *  \file SDL_system.h
  *
- *  Include file for platform specific SDL API functions
+ *  Include file for Platform specific SDL API functions
  */
 
 #ifndef SDL_system_h_
@@ -559,7 +559,7 @@ extern DECLSPEC const wchar_t * SDLCALL SDL_WinRTGetFSPathUNICODE(SDL_WinRT_Path
 extern DECLSPEC const char * SDLCALL SDL_WinRTGetFSPathUTF8(SDL_WinRT_Path pathType);
 
 /**
- * Detects the device family of WinRT platform at runtime.
+ * Detects the device family of WinRT Platform at runtime.
  *
  * \returns a value from the SDL_WinRT_DeviceFamily enum.
  *

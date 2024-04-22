@@ -71,7 +71,7 @@ extern "C" {
  * pointer when done with it.
  *
  * \returns an absolute path in UTF-8 encoding to the application data
- *          directory. NULL will be returned on error or when the platform
+ *          directory. NULL will be returned on error or when the Platform
  *          doesn't implement this functionality, call SDL_GetError() for more
  *          information.
  *
@@ -128,7 +128,7 @@ extern DECLSPEC char *SDLCALL SDL_GetBasePath(void);
  *
  * \param org the name of your organization
  * \param app the name of your application
- * \returns a UTF-8 string of the user directory in platform-dependent
+ * \returns a UTF-8 string of the user directory in Platform-dependent
  *          notation. NULL if there's a problem (creating directory failed,
  *          etc.).
  *

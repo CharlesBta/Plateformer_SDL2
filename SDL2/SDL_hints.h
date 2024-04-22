@@ -31,7 +31,7 @@
  *  the environment variable that can be used to override the default.
  *
  *  In general these hints are just that - they may or may not be
- *  supported or applicable on any given platform, but they provide
+ *  supported or applicable on any given Platform, but they provide
  *  a way for an application or user to give the library a hint as
  *  to how they would like the library to work.
  */
@@ -355,7 +355,7 @@ extern "C" {
  * With -s ASYNCIFY, SDL2 calls emscripten_sleep during operations
  * such as refreshing the screen or polling events.
  *
- * This hint only applies to the emscripten platform
+ * This hint only applies to the emscripten Platform
  *
  * The variable can be set to the following values:
  *    "0"       - Disable emscripten_sleep calls (if you give back browser control manually or use asyncify for other purposes)
@@ -366,7 +366,7 @@ extern "C" {
 /**
  *  \brief override the binding element for keyboard inputs for Emscripten builds
  *
- * This hint only applies to the emscripten platform
+ * This hint only applies to the emscripten Platform
  *
  * The variable can be one of
  *    "#window"      - The javascript window object (this is the default)
@@ -446,7 +446,7 @@ extern "C" {
  *    "1"       - Enable 3D acceleration, using the default renderer.
  *    "X"       - Enable 3D acceleration, using X where X is one of the valid rendering drivers.  (e.g. "direct3d", "opengl", etc.)
  *
- *  By default SDL tries to make a best guess for each platform whether
+ *  By default SDL tries to make a best guess for each Platform whether
  *  to use acceleration or not.
  */
 #define SDL_HINT_FRAMEBUFFER_ACCELERATION   "SDL_FRAMEBUFFER_ACCELERATION"
@@ -1622,8 +1622,8 @@ extern "C" {
  *    "metal"
  *    "software"
  *
- *  The default varies by platform, but it's the first one in the list that
- *  is available on the current platform.
+ *  The default varies by Platform, but it's the first one in the list that
+ *  is available on the current Platform.
  */
 #define SDL_HINT_RENDER_DRIVER              "SDL_RENDER_DRIVER"
 
@@ -1774,7 +1774,7 @@ extern "C" {
  *     * Refer to the man pages for more information.
  *
  *  This variable can be set to the following values:
- *    "0"       - default platform specific behaviour
+ *    "0"       - default Platform specific behaviour
  *    "1"       - Force SDL_THREAD_PRIORITY_TIME_CRITICAL to a realtime scheduling policy
  */
 #define SDL_HINT_THREAD_FORCE_REALTIME_TIME_CRITICAL "SDL_THREAD_FORCE_REALTIME_TIME_CRITICAL"
@@ -1788,7 +1788,7 @@ extern "C" {
 *  Code which has specific requirements can override SDL's default behavior with this hint.
 *
 *  pthread hint values are "current", "other", "fifo" and "rr".
-*  Currently no other platform hint values are defined but may be in the future.
+*  Currently no other Platform hint values are defined but may be in the future.
 *
 *  \note On Linux, the kernel may send SIGKILL to realtime tasks which exceed the distro
 *  configured execution budget for rtkit. This budget can be queried through RLIMIT_RTTIME
@@ -2275,7 +2275,7 @@ extern "C" {
 #define SDL_HINT_WINDOWS_FORCE_SEMAPHORE_KERNEL "SDL_WINDOWS_FORCE_SEMAPHORE_KERNEL"
 
 /**
- * \brief A variable to specify custom icon resource id from RC file on Windows platform
+ * \brief A variable to specify custom icon resource id from RC file on Windows Platform
  */
 #define SDL_HINT_WINDOWS_INTRESOURCE_ICON       "SDL_WINDOWS_INTRESOURCE_ICON"
 #define SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL "SDL_WINDOWS_INTRESOURCE_ICON_SMALL"
@@ -2476,7 +2476,7 @@ extern "C" {
  *
  *  Please note that on Windows Phone, Microsoft does not provide standard UI
  *  for displaying a privacy policy link, and as such, SDL_HINT_WINRT_PRIVACY_POLICY_URL
- *  will not get used on that platform.  Network-enabled phone apps should display
+ *  will not get used on that Platform.  Network-enabled phone apps should display
  *  their privacy policy through some other, in-app means.
  */
 #define SDL_HINT_WINRT_PRIVACY_POLICY_URL "SDL_WINRT_PRIVACY_POLICY_URL"

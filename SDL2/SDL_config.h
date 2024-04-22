@@ -29,7 +29,7 @@
  *  This is a set of defines to configure the SDL features
  */
 
-/* General platform specific identifiers */
+/* General Platform specific identifiers */
 #include "SDL_platform.h"
 
 /* Make sure that this isn't included by Visual C++ */

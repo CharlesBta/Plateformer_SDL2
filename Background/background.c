@@ -1,47 +1,49 @@
+#include "background.h"
+
 int load_spritesBackground(BackgroundTexture *t[7], SDL_Renderer *renderer) {
-    t[0]->texture = IMG_LoadTexture(renderer, "./Background/Blue.png");
+    t[0]->texture = IMG_LoadTexture(renderer, "./Background/Image/Blue.png");
     if (!t[0]) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Blue.png", IMG_GetError());
         return -1;
     } else {
         t[0]->rect = (SDL_Rect) {0, 0, 64, 64};
     }
-    t[1]->texture = IMG_LoadTexture(renderer, "./Background/Brown.png");
+    t[1]->texture = IMG_LoadTexture(renderer, "./Background/Image/Brown.png");
     if (!t[1]) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Brown.png", IMG_GetError());
         return -1;
     } else {
         t[1]->rect = (SDL_Rect) {0, 0, 64, 64};
     }
-    t[2]->texture = IMG_LoadTexture(renderer, "./Background/Gray.png");
+    t[2]->texture = IMG_LoadTexture(renderer, "./Background/Image/Gray.png");
     if (!t[2]) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Gray.png", IMG_GetError());
         return -1;
     } else {
         t[2]->rect = (SDL_Rect) {0, 0, 64, 64};
     }
-    t[3]->texture = IMG_LoadTexture(renderer, "./Background/Green.png");
+    t[3]->texture = IMG_LoadTexture(renderer, "./Background/Image/Green.png");
     if (!t[3]) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Green.png", IMG_GetError());
         return -1;
     } else {
         t[3]->rect = (SDL_Rect) {0, 0, 64, 64};
     }
-    t[4]->texture = IMG_LoadTexture(renderer, "./Background/Pink.png");
+    t[4]->texture = IMG_LoadTexture(renderer, "./Background/Image/Pink.png");
     if (!t[4]) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Pink.png", IMG_GetError());
         return -1;
     } else {
         t[4]->rect = (SDL_Rect) {0, 0, 64, 64};
     }
-    t[5]->texture = IMG_LoadTexture(renderer, "./Background/Purple.png");
+    t[5]->texture = IMG_LoadTexture(renderer, "./Background/Image/Purple.png");
     if (!t[5]) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Purple.png", IMG_GetError());
         return -1;
     } else {
         t[5]->rect = (SDL_Rect) {0, 0, 64, 64};
     }
-    t[6]->texture = IMG_LoadTexture(renderer, "./Background/Yellow.png");
+    t[6]->texture = IMG_LoadTexture(renderer, "./Background/Image/Yellow.png");
     if (!t[6]) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Yellow.png", IMG_GetError());
         return -1;

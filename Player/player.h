@@ -14,6 +14,13 @@ typedef enum SpriteState{
     FALL_LEFT
 } SpriteState;
 
+typedef struct Sprite{
+    SDL_Texture *texture;
+    SDL_Rect srcRect;
+    int Pos[12][2];
+    int nbPos;
+}Sprite;
+
 typedef struct Player {
     int speed;
     int jumpSpeed;

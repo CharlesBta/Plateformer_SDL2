@@ -61,7 +61,7 @@ typedef Sint32 SDL_SensorID;
 
 /* The different sensors defined by SDL
  *
- * Additional sensors may be available, using platform dependent semantics.
+ * Additional sensors may be available, using Platform dependent semantics.
  *
  * Hare are the additional Android sensors:
  * https://developer.android.com/reference/android/hardware/SensorEvent.html#values
@@ -174,10 +174,10 @@ extern DECLSPEC const char *SDLCALL SDL_SensorGetDeviceName(int device_index);
 extern DECLSPEC SDL_SensorType SDLCALL SDL_SensorGetDeviceType(int device_index);
 
 /**
- * Get the platform dependent type of a sensor.
+ * Get the Platform dependent type of a sensor.
  *
  * \param device_index The sensor to check
- * \returns the sensor platform dependent type, or -1 if `device_index` is out
+ * \returns the sensor Platform dependent type, or -1 if `device_index` is out
  *          of range.
  *
  * \since This function is available since SDL 2.0.9.
@@ -236,10 +236,10 @@ extern DECLSPEC const char *SDLCALL SDL_SensorGetName(SDL_Sensor *sensor);
 extern DECLSPEC SDL_SensorType SDLCALL SDL_SensorGetType(SDL_Sensor *sensor);
 
 /**
- * Get the platform dependent type of a sensor.
+ * Get the Platform dependent type of a sensor.
  *
  * \param sensor The SDL_Sensor object to inspect
- * \returns the sensor platform dependent type, or -1 if `sensor` is NULL.
+ * \returns the sensor Platform dependent type, or -1 if `sensor` is NULL.
  *
  * \since This function is available since SDL 2.0.9.
  */

@@ -63,15 +63,15 @@
 ** MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
 */
 
-/* Khronos platform-specific types and definitions.
+/* Khronos Platform-specific types and definitions.
  *
  * The master copy of khrplatform.h is maintained in the Khronos EGL
  * Registry repository at https://github.com/KhronosGroup/EGL-Registry
  * The last semantic modification to khrplatform.h was at commit ID:
  *      67a3e0864c2d75ea5287b9f3d2eb74a745936692
  *
- * Adopters may modify this file to suit their platform. Adopters are
- * encouraged to submit platform specific modifications to the Khronos
+ * Adopters may modify this file to suit their Platform. Adopters are
+ * encouraged to submit Platform specific modifications to the Khronos
  * group so that they can be included in future versions of this file.
  * Please submit changes by filing pull requests or issues on
  * the EGL Registry repository linked above.
@@ -193,7 +193,7 @@ typedef uint64_t                khronos_uint64_t;
 #define KHRONOS_SUPPORT_INT64   1
 #define KHRONOS_SUPPORT_FLOAT   1
 /*
- * To support platform where unsigned long cannot be used interchangeably with
+ * To support Platform where unsigned long cannot be used interchangeably with
  * inptr_t (e.g. CHERI-extended ISAs), we can use the stdint.h intptr_t.
  * Ideally, we could just use (u)intptr_t everywhere, but this could result in
  * ABI breakage if khronos_uintptr_t is changed from unsigned long to
@@ -252,7 +252,7 @@ typedef unsigned long long int  khronos_uint64_t;
 #elif 0
 
 /*
- * Hypothetical platform with no float or int64 support
+ * Hypothetical Platform with no float or int64 support
  */
 typedef int                     khronos_int32_t;
 typedef unsigned int            khronos_uint32_t;
@@ -360,7 +360,7 @@ typedef enum {
 
 /* Platform-specific types and definitions for egl.h
  *
- * Adopters may modify khrplatform.h and this file to suit their platform.
+ * Adopters may modify khrplatform.h and this file to suit their Platform.
  * You are encouraged to submit all modifications to the Khronos group so that
  * they can be included in future versions of this file.  Please submit changes
  * by filing an issue or pull request on the public Khronos EGL Registry, at
@@ -390,7 +390,7 @@ typedef enum {
 
 /* The types NativeDisplayType, NativeWindowType, and NativePixmapType
  * are aliases of window-system-dependent types, such as X Display * or
- * Windows Device Context. They must be defined in platform-specific
+ * Windows Device Context. They must be defined in Platform-specific
  * code below. The EGL-prefixed versions of Native*Type are the same
  * types, renamed in EGL 1.3 so all types in the API start with "EGL".
  *
@@ -840,7 +840,7 @@ typedef EGLint (EGLAPIENTRYP PFNEGLCLIENTWAITSYNCPROC) (EGLDisplay dpy, EGLSync 
 typedef EGLBoolean (EGLAPIENTRYP PFNEGLGETSYNCATTRIBPROC) (EGLDisplay dpy, EGLSync sync, EGLint attribute, EGLAttrib *value);
 typedef EGLImage (EGLAPIENTRYP PFNEGLCREATEIMAGEPROC) (EGLDisplay dpy, EGLContext ctx, EGLenum target, EGLClientBuffer buffer, const EGLAttrib *attrib_list);
 typedef EGLBoolean (EGLAPIENTRYP PFNEGLDESTROYIMAGEPROC) (EGLDisplay dpy, EGLImage image);
-typedef EGLDisplay (EGLAPIENTRYP PFNEGLGETPLATFORMDISPLAYPROC) (EGLenum platform, void *native_display, const EGLAttrib *attrib_list);
+typedef EGLDisplay (EGLAPIENTRYP PFNEGLGETPLATFORMDISPLAYPROC) (EGLenum Platform, void *native_display, const EGLAttrib *attrib_list);
 typedef EGLSurface (EGLAPIENTRYP PFNEGLCREATEPLATFORMWINDOWSURFACEPROC) (EGLDisplay dpy, EGLConfig config, void *native_window, const EGLAttrib *attrib_list);
 typedef EGLSurface (EGLAPIENTRYP PFNEGLCREATEPLATFORMPIXMAPSURFACEPROC) (EGLDisplay dpy, EGLConfig config, void *native_pixmap, const EGLAttrib *attrib_list);
 typedef EGLBoolean (EGLAPIENTRYP PFNEGLWAITSYNCPROC) (EGLDisplay dpy, EGLSync sync, EGLint flags);
@@ -851,7 +851,7 @@ EGLAPI EGLint EGLAPIENTRY eglClientWaitSync (EGLDisplay dpy, EGLSync sync, EGLin
 EGLAPI EGLBoolean EGLAPIENTRY eglGetSyncAttrib (EGLDisplay dpy, EGLSync sync, EGLint attribute, EGLAttrib *value);
 EGLAPI EGLImage EGLAPIENTRY eglCreateImage (EGLDisplay dpy, EGLContext ctx, EGLenum target, EGLClientBuffer buffer, const EGLAttrib *attrib_list);
 EGLAPI EGLBoolean EGLAPIENTRY eglDestroyImage (EGLDisplay dpy, EGLImage image);
-EGLAPI EGLDisplay EGLAPIENTRY eglGetPlatformDisplay (EGLenum platform, void *native_display, const EGLAttrib *attrib_list);
+EGLAPI EGLDisplay EGLAPIENTRY eglGetPlatformDisplay (EGLenum Platform, void *native_display, const EGLAttrib *attrib_list);
 EGLAPI EGLSurface EGLAPIENTRY eglCreatePlatformWindowSurface (EGLDisplay dpy, EGLConfig config, void *native_window, const EGLAttrib *attrib_list);
 EGLAPI EGLSurface EGLAPIENTRY eglCreatePlatformPixmapSurface (EGLDisplay dpy, EGLConfig config, void *native_pixmap, const EGLAttrib *attrib_list);
 EGLAPI EGLBoolean EGLAPIENTRY eglWaitSync (EGLDisplay dpy, EGLSync sync, EGLint flags);
@@ -1744,11 +1744,11 @@ EGLAPI const char *EGLAPIENTRY eglQueryOutputPortStringEXT (EGLDisplay dpy, EGLO
 
 #ifndef EGL_EXT_platform_base
 #define EGL_EXT_platform_base 1
-typedef EGLDisplay (EGLAPIENTRYP PFNEGLGETPLATFORMDISPLAYEXTPROC) (EGLenum platform, void *native_display, const EGLint *attrib_list);
+typedef EGLDisplay (EGLAPIENTRYP PFNEGLGETPLATFORMDISPLAYEXTPROC) (EGLenum Platform, void *native_display, const EGLint *attrib_list);
 typedef EGLSurface (EGLAPIENTRYP PFNEGLCREATEPLATFORMWINDOWSURFACEEXTPROC) (EGLDisplay dpy, EGLConfig config, void *native_window, const EGLint *attrib_list);
 typedef EGLSurface (EGLAPIENTRYP PFNEGLCREATEPLATFORMPIXMAPSURFACEEXTPROC) (EGLDisplay dpy, EGLConfig config, void *native_pixmap, const EGLint *attrib_list);
 #ifdef EGL_EGLEXT_PROTOTYPES
-EGLAPI EGLDisplay EGLAPIENTRY eglGetPlatformDisplayEXT (EGLenum platform, void *native_display, const EGLint *attrib_list);
+EGLAPI EGLDisplay EGLAPIENTRY eglGetPlatformDisplayEXT (EGLenum Platform, void *native_display, const EGLint *attrib_list);
 EGLAPI EGLSurface EGLAPIENTRY eglCreatePlatformWindowSurfaceEXT (EGLDisplay dpy, EGLConfig config, void *native_window, const EGLint *attrib_list);
 EGLAPI EGLSurface EGLAPIENTRY eglCreatePlatformPixmapSurfaceEXT (EGLDisplay dpy, EGLConfig config, void *native_pixmap, const EGLint *attrib_list);
 #endif

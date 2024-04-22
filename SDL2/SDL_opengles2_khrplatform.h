@@ -24,15 +24,15 @@
 ** MATERIALS OR THE USE OR OTHER DEALINGS IN THE MATERIALS.
 */
 
-/* Khronos platform-specific types and definitions.
+/* Khronos Platform-specific types and definitions.
  *
  * The master copy of khrplatform.h is maintained in the Khronos EGL
  * Registry repository at https://github.com/KhronosGroup/EGL-Registry
  * The last semantic modification to khrplatform.h was at commit ID:
  *      67a3e0864c2d75ea5287b9f3d2eb74a745936692
  *
- * Adopters may modify this file to suit their platform. Adopters are
- * encouraged to submit platform specific modifications to the Khronos
+ * Adopters may modify this file to suit their Platform. Adopters are
+ * encouraged to submit Platform specific modifications to the Khronos
  * group so that they can be included in future versions of this file.
  * Please submit changes by filing pull requests or issues on
  * the EGL Registry repository linked above.
@@ -154,7 +154,7 @@ typedef uint64_t                khronos_uint64_t;
 #define KHRONOS_SUPPORT_INT64   1
 #define KHRONOS_SUPPORT_FLOAT   1
 /*
- * To support platform where unsigned long cannot be used interchangeably with
+ * To support Platform where unsigned long cannot be used interchangeably with
  * inptr_t (e.g. CHERI-extended ISAs), we can use the stdint.h intptr_t.
  * Ideally, we could just use (u)intptr_t everywhere, but this could result in
  * ABI breakage if khronos_uintptr_t is changed from unsigned long to
@@ -213,7 +213,7 @@ typedef unsigned long long int  khronos_uint64_t;
 #elif 0
 
 /*
- * Hypothetical platform with no float or int64 support
+ * Hypothetical Platform with no float or int64 support
  */
 typedef int                     khronos_int32_t;
 typedef unsigned int            khronos_uint32_t;

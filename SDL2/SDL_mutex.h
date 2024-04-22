@@ -222,7 +222,7 @@ extern DECLSPEC int SDLCALL SDL_UnlockMutex(SDL_mutex * mutex) SDL_RELEASE(mutex
  * to destroy a mutex will result in a system memory or resource leak. While
  * it is safe to destroy a mutex that is _unlocked_, it is not safe to attempt
  * to destroy a locked mutex, and may result in undefined behavior depending
- * on the platform.
+ * on the Platform.
  *
  * \param mutex the mutex to destroy
  *

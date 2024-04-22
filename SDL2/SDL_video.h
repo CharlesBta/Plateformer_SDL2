@@ -963,7 +963,7 @@ extern DECLSPEC void SDLCALL SDL_GetWindowPosition(SDL_Window * window,
  * Set the size of a window's client area.
  *
  * The window size in screen coordinates may differ from the size in pixels,
- * if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform
+ * if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a Platform
  * with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize() or
  * SDL_GetRendererOutputSize() to get the real client area size in pixels.
  *
@@ -991,7 +991,7 @@ extern DECLSPEC void SDLCALL SDL_SetWindowSize(SDL_Window * window, int w,
  * height value is not desired.
  *
  * The window size in screen coordinates may differ from the size in pixels,
- * if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a platform
+ * if the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a Platform
  * with high-dpi support (e.g. iOS or macOS). Use SDL_GL_GetDrawableSize(),
  * SDL_Vulkan_GetDrawableSize(), or SDL_GetRendererOutputSize() to get the
  * real client area size in pixels.
@@ -1052,7 +1052,7 @@ extern DECLSPEC int SDLCALL SDL_GetWindowBordersSize(SDL_Window * window,
  *
  * This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI
  * drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a
- * platform with high-DPI support (Apple calls this "Retina"), and not
+ * Platform with high-DPI support (Apple calls this "Retina"), and not
  * disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.
  *
  * \param window the window from which the drawable size should be queried
@@ -1591,7 +1591,7 @@ extern DECLSPEC int SDLCALL SDL_SetWindowOpacity(SDL_Window * window, float opac
 /**
  * Get the opacity of a window.
  *
- * If transparency isn't supported on this platform, opacity will be reported
+ * If transparency isn't supported on this Platform, opacity will be reported
  * as 1.0f without error.
  *
  * The parameter `opacity` is ignored if it is NULL.
@@ -1866,7 +1866,7 @@ extern DECLSPEC void SDLCALL SDL_DisableScreenSaver(void);
  * If you do this, you need to retrieve all of the GL functions used in your
  * program from the dynamic library using SDL_GL_GetProcAddress().
  *
- * \param path the platform dependent OpenGL library name, or NULL to open the
+ * \param path the Platform dependent OpenGL library name, or NULL to open the
  *             default OpenGL library
  * \returns 0 on success or a negative error code on failure; call
  *          SDL_GetError() for more information.
@@ -1887,7 +1887,7 @@ extern DECLSPEC int SDLCALL SDL_GL_LoadLibrary(const char *path);
  *
  * There are some quirks to looking up OpenGL functions that require some
  * extra care from the application. If you code carefully, you can handle
- * these quirks without any platform-specific code, though:
+ * these quirks without any Platform-specific code, though:
  *
  * - On Windows, function pointers are specific to the current GL context;
  *   this means you need to have created a GL context and made it current
@@ -2076,7 +2076,7 @@ extern DECLSPEC SDL_GLContext SDLCALL SDL_GL_GetCurrentContext(void);
  *
  * This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI
  * drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a
- * platform with high-DPI support (Apple calls this "Retina"), and not
+ * Platform with high-DPI support (Apple calls this "Retina"), and not
  * disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.
  *
  * \param window the window from which the drawable size should be queried
