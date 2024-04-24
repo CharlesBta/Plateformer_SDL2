@@ -22,7 +22,7 @@
 /**
  *  \file SDL_platform.h
  *
- *  Try to get a standard set of platform defines.
+ *  Try to get a standard set of Platform defines.
  */
 
 #ifndef SDL_platform_h_
@@ -194,7 +194,7 @@
 #undef __WIN32__
 #define __WIN32__ 1
 #endif
-/* This is to support generic "any GDK" separate from a platform-specific GDK */
+/* This is to support generic "any GDK" separate from a Platform-specific GDK */
 #if defined(__WINGDK__) || defined(__XBOXONE__) || defined(__XBOXSERIES__)
 #undef __GDK__
 #define __GDK__ 1
@@ -239,7 +239,7 @@ extern "C" {
 #endif
 
 /**
- * Get the name of the platform.
+ * Get the name of the Platform.
  *
  * Here are the names returned for some (but not all) supported platforms:
  *
@@ -249,7 +249,7 @@ extern "C" {
  * - "iOS"
  * - "Android"
  *
- * \returns the name of the platform. If the correct platform name is not
+ * \returns the name of the Platform. If the correct Platform name is not
  *          available, returns a string beginning with the text "Unknown".
  *
  * \since This function is available since SDL 2.0.0.

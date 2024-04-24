@@ -97,7 +97,7 @@ typedef VkSurfaceKHR SDL_vulkanSurface; /* for compatibility with Tizen */
  * supported. Either do not link to the Vulkan loader or link to a dynamic
  * library version.
  *
- * \param path The platform dependent Vulkan loader library name or NULL
+ * \param path The Platform dependent Vulkan loader library name or NULL
  * \returns 0 on success or -1 if the library couldn't be loaded; call
  *          SDL_GetError() for more information.
  *
@@ -188,7 +188,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_Vulkan_CreateSurface(SDL_Window *window,
  *
  * This may differ from SDL_GetWindowSize() if we're rendering to a high-DPI
  * drawable, i.e. the window was created with `SDL_WINDOW_ALLOW_HIGHDPI` on a
- * platform with high-DPI support (Apple calls this "Retina"), and not
+ * Platform with high-DPI support (Apple calls this "Retina"), and not
  * disabled by the `SDL_HINT_VIDEO_HIGHDPI_DISABLED` hint.
  *
  * \param window an SDL_Window for which the size is to be queried

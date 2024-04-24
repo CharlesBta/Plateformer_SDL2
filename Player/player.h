@@ -14,12 +14,20 @@ typedef enum SpriteState{
     FALL_LEFT
 } SpriteState;
 
+typedef struct Sprite{
+    SDL_Texture *texture;
+    SDL_Rect srcRect;
+    int Pos[12][2];
+    int nbPos;
+}Sprite;
+
 typedef struct Player {
     int speed;
     int jumpSpeed;
     int velocity[2]; // x and y velocity
     bool alive;
     bool moving;
+    int colectedCherry;
     Direction direction;
     bool running;
     bool jumping;

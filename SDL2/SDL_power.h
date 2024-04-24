@@ -61,7 +61,7 @@ typedef enum
  * state, you should call this function frequently, and perhaps ignore changes
  * until they seem to be stable for a few seconds.
  *
- * It's possible a platform can only report battery percentage or time left
+ * It's possible a Platform can only report battery percentage or time left
  * but not both.
  *
  * \param seconds seconds of battery life left, you can pass a NULL here if

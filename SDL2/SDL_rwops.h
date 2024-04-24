@@ -217,7 +217,7 @@ extern DECLSPEC SDL_RWops *SDLCALL SDL_RWFromFP(FILE * fp, SDL_bool autoclose);
  * pointer (stdio.h's `FILE*`).
  *
  * This function is not available on Windows, since files opened in an
- * application on that platform cannot be used by a dynamically linked
+ * application on that Platform cannot be used by a dynamically linked
  * library.
  *
  * On some platforms, the first parameter is a `void*`, on others, it's a
@@ -614,7 +614,7 @@ extern DECLSPEC Uint8 SDLCALL SDL_ReadU8(SDL_RWops * src);
  * the native byte order.
  *
  * \param src the stream from which to read data
- * \returns 16 bits of data in the native byte order of the platform.
+ * \returns 16 bits of data in the native byte order of the Platform.
  *
  * \since This function is available since SDL 2.0.0.
  *
@@ -630,7 +630,7 @@ extern DECLSPEC Uint16 SDLCALL SDL_ReadLE16(SDL_RWops * src);
  * the native byte order.
  *
  * \param src the stream from which to read data
- * \returns 16 bits of data in the native byte order of the platform.
+ * \returns 16 bits of data in the native byte order of the Platform.
  *
  * \since This function is available since SDL 2.0.0.
  *
@@ -646,7 +646,7 @@ extern DECLSPEC Uint16 SDLCALL SDL_ReadBE16(SDL_RWops * src);
  * the native byte order.
  *
  * \param src the stream from which to read data
- * \returns 32 bits of data in the native byte order of the platform.
+ * \returns 32 bits of data in the native byte order of the Platform.
  *
  * \since This function is available since SDL 2.0.0.
  *
@@ -662,7 +662,7 @@ extern DECLSPEC Uint32 SDLCALL SDL_ReadLE32(SDL_RWops * src);
  * the native byte order.
  *
  * \param src the stream from which to read data
- * \returns 32 bits of data in the native byte order of the platform.
+ * \returns 32 bits of data in the native byte order of the Platform.
  *
  * \since This function is available since SDL 2.0.0.
  *
@@ -678,7 +678,7 @@ extern DECLSPEC Uint32 SDLCALL SDL_ReadBE32(SDL_RWops * src);
  * the native byte order.
  *
  * \param src the stream from which to read data
- * \returns 64 bits of data in the native byte order of the platform.
+ * \returns 64 bits of data in the native byte order of the Platform.
  *
  * \since This function is available since SDL 2.0.0.
  *
@@ -694,7 +694,7 @@ extern DECLSPEC Uint64 SDLCALL SDL_ReadLE64(SDL_RWops * src);
  * the native byte order.
  *
  * \param src the stream from which to read data
- * \returns 64 bits of data in the native byte order of the platform.
+ * \returns 64 bits of data in the native byte order of the Platform.
  *
  * \since This function is available since SDL 2.0.0.
  *

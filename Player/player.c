@@ -110,7 +110,7 @@ void updatePlayerAnimation(SDL_Renderer *renderer, Player *p) {
     p->sprites[p->spriteIndex]->srcRect.x = p->sprites[p->spriteIndex]->Pos[(int) spriteIndex / 4][0];
     p->sprites[p->spriteIndex]->srcRect.y = p->sprites[p->spriteIndex]->Pos[(int) spriteIndex / 4][1];
 
-    if (spriteIndex == p->sprites[p->spriteIndex]->nbPos * 4 - 1) {
+    if (spriteIndex >= p->sprites[p->spriteIndex]->nbPos * 4 - 1) {
         spriteIndex = 0;
     } else {
         spriteIndex++;

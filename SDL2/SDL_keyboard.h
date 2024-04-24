@@ -180,7 +180,7 @@ extern DECLSPEC SDL_Scancode SDLCALL SDL_GetScancodeFromKey(SDL_Keycode key);
  * `SDL_SCANCODE_NONUSBACKSLASH` don't have any name at all. There are even
  * scancodes that share names, e.g. `SDL_SCANCODE_RETURN` and
  * `SDL_SCANCODE_RETURN2` (both called "Return"). This function is therefore
- * unsuitable for creating a stable cross-platform two-way mapping between
+ * unsuitable for creating a stable cross-Platform two-way mapping between
  * strings and scancodes.
  *
  * \param scancode the desired SDL_Scancode to query
@@ -320,9 +320,9 @@ extern DECLSPEC SDL_bool SDLCALL SDL_IsTextInputShown(void);
 extern DECLSPEC void SDLCALL SDL_SetTextInputRect(const SDL_Rect *rect);
 
 /**
- * Check whether the platform has screen keyboard support.
+ * Check whether the Platform has screen keyboard support.
  *
- * \returns SDL_TRUE if the platform has some screen keyboard support or
+ * \returns SDL_TRUE if the Platform has some screen keyboard support or
  *          SDL_FALSE if not.
  *
  * \since This function is available since SDL 2.0.0.

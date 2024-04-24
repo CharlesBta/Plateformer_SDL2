@@ -40,7 +40,7 @@ extern "C" {
 /**
  * An SDL_GUID is a 128-bit identifier for an input device that
  *   identifies that device across runs of SDL programs on the same
- *   platform.  If the device is detached and then re-attached to a
+ *   Platform.  If the device is detached and then re-attached to a
  *   different port, or if the base system is rebooted, the device
  *   should still report the same GUID.
  *
@@ -49,7 +49,7 @@ extern "C" {
  *   example, two game controllers from the same vendor with the same
  *   product ID and revision may have the same GUID.
  *
- * GUIDs may be platform-dependent (i.e., the same device may report
+ * GUIDs may be Platform-dependent (i.e., the same device may report
  *   different GUIDs on different operating systems).
  */
 typedef struct {

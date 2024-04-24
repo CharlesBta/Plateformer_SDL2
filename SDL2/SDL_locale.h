@@ -73,7 +73,7 @@ typedef struct SDL_Locale
  * "color" is spelled "colour", etc), but will settle for anything like it: {
  * "en_GB", "en", NULL }.
  *
- * This function returns NULL on error, including when the platform does not
+ * This function returns NULL on error, including when the Platform does not
  * supply this information at all.
  *
  * This might be a "slow" call that has to query the operating system. It's

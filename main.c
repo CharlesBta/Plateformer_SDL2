@@ -114,7 +114,7 @@ int main() {
         return -1;
     }
 
-    SDL_Texture *texturePlatform = IMG_LoadTexture(renderer, "./Sprites/Platform.png");
+    SDL_Texture *texturePlatform = IMG_LoadTexture(renderer, "./Platform/Image/Platform.png");
     if (!texturePlatform) {
         printf("Unable to load image %s! SDL_image Error: %s\n", "Platform.png", IMG_GetError());
         SDL_DestroyRenderer(renderer);
@@ -284,10 +284,25 @@ int main() {
     int nbPlatforms = sizeof(platforms) / sizeof(platforms[0]);
     loadPlatforms(renderer, platforms, nbPlatforms);
 #pragma endregion
+#pragma region Cherry_Setup
+    SDL_Texture *textureCherry = IMG_LoadTexture(renderer, "./Cherry/Image/Cherries.png");
+    if (!textureCherry) {
+        printf("Unable to load image %s! SDL_image Error: %s\n", "Cherries.png", IMG_GetError());
+        SDL_DestroyRenderer(renderer);
+        SDL_DestroyWindow(window);
+        IMG_Quit();
+        SDL_Quit();
+        return -1;
+    }
+
+    Cherries *cherries = NULL;
+    addCherry(&cherries, generateCherry(textureCherry, 600, 200));
+    addCherry(&cherries, generateCherry(textureCherry, 800, 200));
+#pragma endregion
 
     Player player = {
             .speed = 5,
-            .jumpSpeed = 25,
+            .jumpSpeed = 22,
             .velocity = {0, 0},
             .alive = true,
             .moving = false,
@@ -295,8 +310,9 @@ int main() {
             .running = false,
             .jumping = false,
             .falling = false,
+            .colectedCherry = 0,
             .spriteIndex = STATIC_RIGHT,
-            .dstRect = {0, 0, 132, 132},
+            .dstRect = {0, 0, (int)132, (int)132},
             .sprites = {
                     &staticRightSprite,
                     &staticLeftSprite,
@@ -335,11 +351,24 @@ int main() {
         GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms)/ sizeof(platforms[0])));
         updatePlayer(&player, GROUND_LEVEL);
 
+        // Update cherry animation
+        for (Cherries *c = cherries; c != NULL; c = c->next){
+            updateCherryAnimation(renderer, &c->cherry);
+        }
+
+        // Check cherry collision
+        for (Cherries *c = cherries; c != NULL; c = c->next){
+            checkCherryCollision(&player, &c->cherry);
+        }
+
         // Update player animation
         updatePlayerAnimation(renderer, &player);
 
-        WRT_DrawText(renderer, fontWhite, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 100, 20);
-        WRT_DrawText(renderer, fontBlack, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 120, 20);
+//        WRT_DrawText(renderer, fontWhite, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- A^A*A", 10, 100, 20);
+//        WRT_DrawText(renderer, fontBlack, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 120, 20);
+
+        // Update count cherry
+        updateCountCherry(renderer, fontWhite, &player);
 
         SDL_RenderPresent(renderer);
         SDL_Delay(1000 / FPS);

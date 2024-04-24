@@ -232,7 +232,7 @@ extern DECLSPEC SDL_hid_device * SDLCALL SDL_hid_open(unsigned short vendor_id, 
  * Open a HID device by its path name.
  *
  * The path name be determined by calling SDL_hid_enumerate(), or a
- * platform-specific path name can be used (eg: /dev/hidraw0 on Linux).
+ * Platform-specific path name can be used (eg: /dev/hidraw0 on Linux).
  *
  * \param path The path name of the device to open
  * \returns a pointer to a SDL_hid_device object on success or NULL on
