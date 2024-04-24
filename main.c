@@ -300,6 +300,8 @@ int main() {
     addCherry(&cherries, generateCherry(textureCherry, 800, 200));
 #pragma endregion
 
+    Button button = createButton(fontWhite, "Play", 24, WINDOW_WIDTH - 130, 10, creatColor(255, 0, 0), -15);
+
     Player player = {
             .speed = 5,
             .jumpSpeed = 22,
@@ -312,7 +314,7 @@ int main() {
             .falling = false,
             .colectedCherry = 0,
             .spriteIndex = STATIC_RIGHT,
-            .dstRect = {0, 0, (int)132, (int)132},
+            .dstRect = {0, 0, (int) 132, (int) 132},
             .sprites = {
                     &staticRightSprite,
                     &staticLeftSprite,
@@ -326,6 +328,28 @@ int main() {
 
     int GROUND_LEVEL = WINDOW_HEIGHT - player.dstRect.h;
 
+    SDL_Point mousePosition;
+
+    Game game = {
+            .event = event,
+            .update = update,
+    };
+
+    Menu menu = {
+            .event = eventMenu,
+            .update = updateMenu
+    };
+
+    Display display = {
+            .game = &game,
+            .menu = &menu,
+    };
+
+    GameState state = MENU;
+
+    Button buttons = createButton(fontWhite, "Play", 24, WINDOW_WIDTH / 2 - 100, WINDOW_HEIGHT/2 - 10, creatColor(255, 0, 0), 10);
+
+
     bool running = true;
     SDL_Event e;
     while (running) {
@@ -334,41 +358,30 @@ int main() {
             // User requests quit
             if (e.type == SDL_QUIT) {
                 running = false;
-            } else{
-                handleInput(e, &player, GROUND_LEVEL);
+            } else {
+                if (state == PLAY) {
+                    display.game->event(e, &player, GROUND_LEVEL, &state);
+                } else if (state == PAUSE) {
+                    // Pause
+                } else if (state == MENU) {
+                    display.menu->event(e, &state, mousePosition, &buttons);
+                }
             }
         }
+
+        SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
+
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
 
-        // Render background
-        set_background(backgroundTexture, renderer, background);
 
-        // Render platforms
-        setPlatforms(renderer, platforms, sizeof(platforms)/ sizeof(platforms[0]));
-
-        // Update player position
-        GROUND_LEVEL = updateGroundLevel(player, GROUND_LEVEL, platforms, (sizeof(platforms)/ sizeof(platforms[0])));
-        updatePlayer(&player, GROUND_LEVEL);
-
-        // Update cherry animation
-        for (Cherries *c = cherries; c != NULL; c = c->next){
-            updateCherryAnimation(renderer, &c->cherry);
+        if (state == PLAY)
+            display.game->update(renderer, &player, platforms, sizeof(platforms)/sizeof(platforms[0]), backgroundTexture, background, &GROUND_LEVEL, cherries, fontWhite, fontBlack);
+        else if (state == PAUSE) {
+            // Pause
+        } else if (state == MENU) {
+            display.menu->update(renderer, &buttons, &mousePosition);
         }
-
-        // Check cherry collision
-        for (Cherries *c = cherries; c != NULL; c = c->next){
-            checkCherryCollision(&player, &c->cherry);
-        }
-
-        // Update player animation
-        updatePlayerAnimation(renderer, &player);
-
-//        WRT_DrawText(renderer, fontWhite, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- A^A*A", 10, 100, 20);
-//        WRT_DrawText(renderer, fontBlack, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 120, 20);
-
-        // Update count cherry
-        updateCountCherry(renderer, fontWhite, &player);
 
         SDL_RenderPresent(renderer);
         SDL_Delay(1000 / FPS);

@@ -21,3 +21,6 @@
 #include "Cherry/cherry.c"
 #include "Components/Button/button.c"
 #include "Components/CountCherry/count_cherry.c"
+#include "Pages/struct.h"
+#include "Pages/Game/game.c"
+#include "Pages/Menu/menu.c"
