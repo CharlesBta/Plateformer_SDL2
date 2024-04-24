@@ -19,3 +19,5 @@
 #include "Platform/platform.c"
 #include "Background/background.c"
 #include "Cherry/cherry.c"
+#include "Components/Button/button.c"
+#include "Components/CountCherry/count_cherry.c"

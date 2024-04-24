@@ -295,34 +295,14 @@ int main() {
         return -1;
     }
 
-    Cherry cherry = {
-            .texture = textureCherry,
-            .srcRect = {0, 0, 32, 32},
-            .Pos = {
-                    // add 17 from {0,0} to {524,0} the first index incremented by 32
-                    {0,0},
-                    {32,0},
-                    {96,0}, // 64
-                    {160,0}, // 64
-                    {224,0}, // 64
-                    {288,0}, // 64
-                    {352,0}, // 64
-                    {416,0}, // 64
-                    {480,0}, // 64
-
-
-
-            },
-            .nbPos = 17,
-            .colected = false,
-            .dstRect = {600, 200, 64, 64}
-    };
-
+    Cherries *cherries = NULL;
+    addCherry(&cherries, generateCherry(textureCherry, 600, 200));
+    addCherry(&cherries, generateCherry(textureCherry, 800, 200));
 #pragma endregion
 
     Player player = {
             .speed = 5,
-            .jumpSpeed = 25,
+            .jumpSpeed = 22,
             .velocity = {0, 0},
             .alive = true,
             .moving = false,
@@ -330,6 +310,7 @@ int main() {
             .running = false,
             .jumping = false,
             .falling = false,
+            .colectedCherry = 0,
             .spriteIndex = STATIC_RIGHT,
             .dstRect = {0, 0, (int)132, (int)132},
             .sprites = {
@@ -371,13 +352,23 @@ int main() {
         updatePlayer(&player, GROUND_LEVEL);
 
         // Update cherry animation
-        updateCherryAnimation(renderer, &cherry);
+        for (Cherries *c = cherries; c != NULL; c = c->next){
+            updateCherryAnimation(renderer, &c->cherry);
+        }
+
+        // Check cherry collision
+        for (Cherries *c = cherries; c != NULL; c = c->next){
+            checkCherryCollision(&player, &c->cherry);
+        }
 
         // Update player animation
         updatePlayerAnimation(renderer, &player);
 
-        WRT_DrawText(renderer, fontWhite, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- A^A*A", 10, 100, 20);
-        WRT_DrawText(renderer, fontBlack, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 120, 20);
+//        WRT_DrawText(renderer, fontWhite, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- A^A*A", 10, 100, 20);
+//        WRT_DrawText(renderer, fontBlack, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:?!()+- AAA", 10, 120, 20);
+
+        // Update count cherry
+        updateCountCherry(renderer, fontWhite, &player);
 
         SDL_RenderPresent(renderer);
         SDL_Delay(1000 / FPS);

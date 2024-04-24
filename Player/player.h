@@ -27,6 +27,7 @@ typedef struct Player {
     int velocity[2]; // x and y velocity
     bool alive;
     bool moving;
+    int colectedCherry;
     Direction direction;
     bool running;
     bool jumping;
