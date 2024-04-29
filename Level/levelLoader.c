@@ -119,7 +119,7 @@ int countPlatforms(const char *filePath) {
     }
 
     fclose(file); // Ferme le fichier
-    return lines; // Retourne le nombre de lignes
+    return lines + 1; // Retourne le nombre de lignes
 }
 
 int countCherries(Cherries *cherries) {

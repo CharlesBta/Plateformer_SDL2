@@ -405,7 +405,6 @@ int main() {
     for (int i = 0; i < nbLevels; ++i) {
         int index = i + 1;
         sprintf(levelStr, "%d", index);
-        printf("Level: %s\n", levelStr);
 
         levels[i].ID = i;
 
@@ -414,7 +413,6 @@ int main() {
 
         sprintf(currentPath, "%s%s%s", path, levelStr, pathPlatforms);
         *levels[i].platforms = platformLoader(texturePlatform, currentPath);
-//        levels[i].nbPlatform = countPlatforms(*levels[i].platforms);
         levels[i].nbPlatform = countPlatforms(currentPath);
 
         sprintf(currentPath, "%s%s%s", path, levelStr, pathCherry);
@@ -423,7 +421,6 @@ int main() {
 
         sprintf(currentPath, "%s%s%s", path, levelStr, pathStartPosition);
         levels[i].startPosition = startPositionLoader(currentPath);
-//        levels[i].startPosition = (StartPosition) {10, WINDOW_HEIGHT - player.dstRect.h};
     }
 
     player.dstRect.x = levels[0].startPosition.x;
@@ -433,6 +430,7 @@ int main() {
 
     bool running = true;
     SDL_Event e;
+
     while (running) {
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
@@ -456,7 +454,6 @@ int main() {
 
         if (state == PLAY) {
             SDL_ShowCursor(SDL_DISABLE);
-            printf("nb platform: %d\n", levels[currentLevel].nbPlatform);
             if (currentLevel < nbLevels) {
                 display.game->update(renderer, &player, *levels[currentLevel].platforms,
                                      levels[currentLevel].nbPlatform,
@@ -480,7 +477,7 @@ int main() {
             display.menu->update(renderer, &playButton, &mousePosition, backgroundTexture, menuBackground);
         } else if (state == WIN) {
             SDL_ShowCursor(SDL_ENABLE);
-            display.win->update(renderer, backgroundTexture, menuBackground, fontWhite);
+            display.win->update(renderer, backgroundTexture, menuBackground, fontWhite, &player);
         }
 
         SDL_RenderPresent(renderer);
