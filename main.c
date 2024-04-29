@@ -268,8 +268,6 @@ int main() {
         SDL_Quit();
         return -1;
     }
-
-    Background background[252] = {BLUE};
 #pragma endregion
 #pragma region Platforms_Setup
     Platform platforms[] = {
@@ -282,7 +280,9 @@ int main() {
             (Platform) {.texture = texturePlatform, .x = 900, .y = WINDOW_HEIGHT - 530},
     };
     int nbPlatforms = sizeof(platforms) / sizeof(platforms[0]);
-    loadPlatforms(renderer, platforms, nbPlatforms);
+    loadPlatforms(platforms, nbPlatforms);
+
+
 #pragma endregion
 #pragma region Cherry_Setup
     SDL_Texture *textureCherry = IMG_LoadTexture(renderer, "./Cherry/Image/Cherries.png");
@@ -299,9 +299,7 @@ int main() {
     addCherry(&cherries, generateCherry(textureCherry, 600, 200));
     addCherry(&cherries, generateCherry(textureCherry, 800, 200));
 #pragma endregion
-
-    Button button = createButton(fontWhite, "Play", 24, WINDOW_WIDTH - 130, 10, creatColor(255, 0, 0), -15);
-
+#pragma region Game_Setup
     Player player = {
             .speed = 5,
             .jumpSpeed = 22,
@@ -312,9 +310,34 @@ int main() {
             .running = false,
             .jumping = false,
             .falling = false,
-            .colectedCherry = 0,
+            .collectedCherry = 0,
+            .score = 0,
             .spriteIndex = STATIC_RIGHT,
             .dstRect = {0, 0, (int) 132, (int) 132},
+            .sprites = {
+                    &staticRightSprite,
+                    &staticLeftSprite,
+                    &runRightSprite,
+                    &runLeftSprite,
+                    &jumpRightSprite,
+                    &jumpLeftSprite,
+                    &fallRightSprite,
+                    &fallLeftSprite}
+    };
+
+    Player displayPlayer = {
+            .speed = 5,
+            .jumpSpeed = 22,
+            .velocity = {0, 0},
+            .alive = true,
+            .moving = false,
+            .direction = RIGHT,
+            .running = false,
+            .jumping = false,
+            .falling = false,
+            .collectedCherry = 0,
+            .spriteIndex = STATIC_RIGHT,
+            .dstRect = {250, WINDOW_HEIGHT / 2 - 150, (int) 132 * 2, (int) 132 * 2},
             .sprites = {
                     &staticRightSprite,
                     &staticLeftSprite,
@@ -340,31 +363,86 @@ int main() {
             .update = updateMenu
     };
 
+    Pause pause = {
+            .event = eventPause,
+            .update = updatePause
+    };
+
+    Win win = {
+            .update = updateWin
+    };
+
     Display display = {
             .game = &game,
             .menu = &menu,
+            .pause = &pause,
+            .win = &win
     };
 
     GameState state = MENU;
 
-    Button buttons = createButton(fontWhite, "Play", 24, WINDOW_WIDTH / 2 - 100, WINDOW_HEIGHT/2 - 10, creatColor(255, 0, 0), 10);
+    Button playButton = createButton(fontWhite, "Play", 24, WINDOW_WIDTH / 2 - 48, WINDOW_HEIGHT / 2 - 6,
+                                     creatColor(255, 0, 0), 10);
+    Button pauseButton = createButton(fontWhite, "Play", 48, 850, WINDOW_HEIGHT / 2 - 24, creatColor(255, 0, 0), 20);
 
+    Background menuBackground[252];
+    for (int i = 0; i < 252; ++i) {
+        menuBackground[i] = GREEN;
+    }
+#pragma endregion
+
+    int nbLevels = count_directories("Level/Levels");
+    Level levels[nbLevels];
+
+    char path[100] = "Level/Levels/Level_";
+    char pathBackground[100] = "/background.csv";
+    char pathPlatforms[100] = "/platforms.csv";
+    char pathCherry[100] = "/cherry.csv";
+    char pathStartPosition[100] = "/startPosition.csv";
+
+    char levelStr[10];
+    char currentPath[200];
+    for (int i = 0; i < nbLevels; ++i) {
+        int index = i + 1;
+        sprintf(levelStr, "%d", index);
+        printf("Level: %s\n", levelStr);
+
+        levels[i].ID = i;
+
+        sprintf(currentPath, "%s%s%s", path, levelStr, pathBackground);
+        *levels[i].background = backgroundLoader(currentPath);
+
+        sprintf(currentPath, "%s%s%s", path, levelStr, pathPlatforms);
+        *levels[i].platforms = platformLoader(texturePlatform, currentPath);
+        levels[i].nbPlatform = countPlatforms(*levels[i].platforms);
+
+        sprintf(currentPath, "%s%s%s", path, levelStr, pathCherry);
+        levels[i].cherries = cherryLoader(textureCherry, currentPath);
+        levels[i].nbCherries = countCherries(levels[i].cherries);
+
+        sprintf(currentPath, "%s%s%s", path, levelStr, pathStartPosition);
+        levels[i].startPosition = startPositionLoader(currentPath);
+//        levels[i].startPosition = (StartPosition) {10, WINDOW_HEIGHT - player.dstRect.h};
+    }
+
+    player.dstRect.x = levels[0].startPosition.x;
+    player.dstRect.y = levels[0].startPosition.y;
+
+    int currentLevel = 0;
 
     bool running = true;
     SDL_Event e;
     while (running) {
-        // Handle events on queue
         while (SDL_PollEvent(&e)) {
-            // User requests quit
             if (e.type == SDL_QUIT) {
                 running = false;
             } else {
                 if (state == PLAY) {
                     display.game->event(e, &player, GROUND_LEVEL, &state);
                 } else if (state == PAUSE) {
-                    // Pause
+                    display.pause->event(e, &state, mousePosition, &pauseButton);
                 } else if (state == MENU) {
-                    display.menu->event(e, &state, mousePosition, &buttons);
+                    display.menu->event(e, &state, mousePosition, &playButton);
                 }
             }
         }
@@ -375,12 +453,36 @@ int main() {
         SDL_RenderClear(renderer);
 
 
-        if (state == PLAY)
-            display.game->update(renderer, &player, platforms, sizeof(platforms)/sizeof(platforms[0]), backgroundTexture, background, &GROUND_LEVEL, cherries, fontWhite, fontBlack);
-        else if (state == PAUSE) {
-            // Pause
+        if (state == PLAY) {
+            SDL_ShowCursor(SDL_DISABLE);
+//            printf("Current Level: %d\n", currentLevel);
+            printf("perso %d\n", player.collectedCherry);
+            printf("nb %d\n", levels[currentLevel].nbCherries);
+
+            if (currentLevel < nbLevels) {
+                display.game->update(renderer, &player, *levels[currentLevel].platforms,
+                                     levels[currentLevel].nbPlatform,
+                                     backgroundTexture, *levels[currentLevel].background, &GROUND_LEVEL,
+                                     levels[currentLevel].cherries, fontWhite, fontBlack);
+                if (player.collectedCherry >= levels[currentLevel].nbCherries) {
+                    currentLevel += 1;
+                    player.collectedCherry = 0;
+                    player.dstRect.x = levels[currentLevel].startPosition.x;
+                    player.dstRect.y = levels[currentLevel].startPosition.y;
+                }
+            } else {
+                state = WIN;
+            }
+        } else if (state == PAUSE) {
+            SDL_ShowCursor(SDL_ENABLE);
+            display.pause->update(renderer, &player, &displayPlayer, &pauseButton, &mousePosition, backgroundTexture,
+                                  menuBackground, fontWhite, fontBlack);
         } else if (state == MENU) {
-            display.menu->update(renderer, &buttons, &mousePosition);
+            SDL_ShowCursor(SDL_ENABLE);
+            display.menu->update(renderer, &playButton, &mousePosition, backgroundTexture, menuBackground);
+        } else if (state == WIN) {
+            SDL_ShowCursor(SDL_ENABLE);
+            display.win->update(renderer, backgroundTexture, menuBackground, fontWhite);
         }
 
         SDL_RenderPresent(renderer);

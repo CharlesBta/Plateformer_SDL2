@@ -11,13 +11,13 @@ Cherry generateCherry(SDL_Texture *texture, int x, int y){
         c->Pos[i][1] = 0;
     }
     c->nbPos = 17;
-    c->colected = false;
+    c->collected = false;
     return *c;
 }
 
 int Index = 0;
 void updateCherryAnimation(SDL_Renderer *renderer, Cherry *c){
-    if (c->colected) {
+    if (c->collected) {
         return;
     }
     if (Index >= c->nbPos *10 -1) {
@@ -32,8 +32,9 @@ void updateCherryAnimation(SDL_Renderer *renderer, Cherry *c){
 }
 
 void checkCherryCollision(Player *p, Cherry *c){
-    if (SDL_HasIntersection(&p->dstRect, &c->hitbox) == SDL_TRUE && !c->colected){
-        c->colected = true;
-        p->colectedCherry++;
+    if (SDL_HasIntersection(&p->dstRect, &c->hitbox) == SDL_TRUE && !c->collected){
+        c->collected = true;
+        p->collectedCherry++;
+        p->score += 100;
     }
 }

@@ -1,6 +1,6 @@
 #include "platform.h"
 
-void loadPlatforms(SDL_Renderer *renderer, Platform platforms[], int nbPlatforms) {
+void loadPlatforms(Platform platforms[], int nbPlatforms) {
     for (int i = 0; i < nbPlatforms; i++) {
         platforms[i].rect = (SDL_Rect) {platforms[i].x, platforms[i].y, 300, 20};
     }

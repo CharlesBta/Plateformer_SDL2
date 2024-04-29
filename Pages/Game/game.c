@@ -8,7 +8,7 @@ void event(SDL_Event e, Player *p, int GL, GameState *gameState){
     }
 }
 
-void update(SDL_Renderer *renderer, Player *p, Platform platforms[], int nbPlatforms, BackgroundTexture *backgroundTexture[], Background background[], int *GROUND_LEVEL, Cherries *cherries, WRT_Font fontWhite, WRT_Font fontBlack) {
+void update(SDL_Renderer *renderer, Player *p, Platform platforms[], int nbPlatforms, BackgroundTexture *backgroundTexture[], Background background[], int *GROUND_LEVEL, Cherries *cherries, WRT_Font fontWhite, WRT_Font fontBlack){
     // Render background
     set_background(backgroundTexture, renderer, background);
 
@@ -31,5 +31,5 @@ void update(SDL_Renderer *renderer, Player *p, Platform platforms[], int nbPlatf
     // Update count cherry
     updateCountCherry(renderer, fontWhite, p);
 
-    WRT_DrawText(renderer, fontWhite, "(Escape) to pause", WINDOW_WIDTH - 180, 10, 10);
+    WRT_DrawText(renderer, fontWhite, "(Escape) to pause", WINDOW_WIDTH - 190, 10, 10);
 }

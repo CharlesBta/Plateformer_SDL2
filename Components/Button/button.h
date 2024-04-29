@@ -5,6 +5,7 @@ typedef struct Color{
 typedef struct Button{
     Color color;
     WRT_Font font;
+    int fontSize;
     char text[100];
     SDL_Rect zone;
     int padding;

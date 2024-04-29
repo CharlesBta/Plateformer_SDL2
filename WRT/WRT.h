@@ -13,7 +13,6 @@ typedef struct WRT_Font{
 
 WRT_Font WRT_LoadFont(SDL_Texture *texture);
 void WRT_DrawText(SDL_Renderer *renderer, WRT_Font font, char *text, int x, int y, int size);
-
 char* WRT_toUpper(const char* input) {
     // Allocate memory for the output string (+1 for the null terminator)
     char* output = malloc(strlen(input) + 1);

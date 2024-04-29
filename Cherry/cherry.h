@@ -5,7 +5,7 @@ typedef struct Cherry{
     SDL_Rect hitbox;
     int Pos[17][2];
     int nbPos;
-    bool colected;
+    bool collected;
 }Cherry;
 
 typedef struct Cherries {

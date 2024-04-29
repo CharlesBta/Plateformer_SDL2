@@ -9,6 +9,7 @@ void eventMenu(SDL_Event e, GameState *gameState, SDL_Point mouse, Button *butto
     }
 }
 
-void updateMenu(SDL_Renderer *renderer, Button *button, SDL_Point *mouse) {
+void updateMenu(SDL_Renderer *renderer, Button *button, SDL_Point *mouse, BackgroundTexture *backgroundTexture[], Background background[]) {
+    set_background(backgroundTexture, renderer, background);
     updateButton(renderer, button, *mouse);
 }
