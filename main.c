@@ -414,7 +414,8 @@ int main() {
 
         sprintf(currentPath, "%s%s%s", path, levelStr, pathPlatforms);
         *levels[i].platforms = platformLoader(texturePlatform, currentPath);
-        levels[i].nbPlatform = countPlatforms(*levels[i].platforms);
+//        levels[i].nbPlatform = countPlatforms(*levels[i].platforms);
+        levels[i].nbPlatform = countPlatforms(currentPath);
 
         sprintf(currentPath, "%s%s%s", path, levelStr, pathCherry);
         levels[i].cherries = cherryLoader(textureCherry, currentPath);
@@ -455,10 +456,7 @@ int main() {
 
         if (state == PLAY) {
             SDL_ShowCursor(SDL_DISABLE);
-//            printf("Current Level: %d\n", currentLevel);
-            printf("perso %d\n", player.collectedCherry);
-            printf("nb %d\n", levels[currentLevel].nbCherries);
-
+            printf("nb platform: %d\n", levels[currentLevel].nbPlatform);
             if (currentLevel < nbLevels) {
                 display.game->update(renderer, &player, *levels[currentLevel].platforms,
                                      levels[currentLevel].nbPlatform,

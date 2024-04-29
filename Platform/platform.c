@@ -8,7 +8,8 @@ void loadPlatforms(Platform platforms[], int nbPlatforms) {
 
 void setPlatforms(SDL_Renderer *renderer, Platform platforms[], int nbPlatforms) {
     for (int i = 0; i < nbPlatforms; i++) {
-        SDL_RenderCopy(renderer, platforms[i].texture, NULL, &platforms[i].rect);
+        if (platforms[i].texture != NULL)
+            SDL_RenderCopy(renderer, platforms[i].texture, NULL, &platforms[i].rect);
     }
 }
 

@@ -93,12 +93,33 @@ Cherries *cherryLoader(SDL_Texture *texture, char path[]) {
     return head;
 }
 
-int countPlatforms(Platform *platforms) {
-    int count = 0;
-    while (platforms[count].texture != NULL) {
-        count++;
+//int countPlatforms(Platform *platforms) {
+//    int count = 0;
+//    while (platforms[count].texture != NULL) {
+//        count++;
+//    }
+//    return count;
+//}
+
+int countPlatforms(const char *filePath) {
+    FILE *file = fopen(filePath, "r"); // Ouvre le fichier en mode lecture
+    if (file == NULL) {
+        perror("Erreur lors de l'ouverture du fichier");
+        return -1; // Retourne -1 en cas d'erreur lors de l'ouverture du fichier
     }
-    return count;
+
+    int lines = 0; // Initialisation du compteur de lignes
+    int ch; // Variable pour stocker chaque caractère lu
+
+    // Boucle de lecture du fichier
+    while ((ch = fgetc(file)) != EOF) {
+        if (ch == '\n') {
+            lines++; // Incrémente le compteur de lignes à chaque nouvelle ligne
+        }
+    }
+
+    fclose(file); // Ferme le fichier
+    return lines; // Retourne le nombre de lignes
 }
 
 int countCherries(Cherries *cherries) {
